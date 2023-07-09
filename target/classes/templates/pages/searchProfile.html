@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  >
+<head>
+</head>
+<body>				
+    			<div  th:fragment="contentFragment">    			<!-- th:text="${userProfile.relStatus}" th:text="${userProfile.country}" th:text="${userProfile.residence}"-->
+    			<h4 th:text="#{userProfile.target.search.title}">Search user profile</h4><hr class="thick">
+    			<form id="searchProfileForm"  th:object="${searchProfileForm}"  th:action="@{/searchProfile}" method="post" >	
+    			
+    			<div class="row">  
+    			 <div class="col-md-5">
+    			<input type="radio" id="gender-man"  name="targetGender" value="0" >
+						<span>&nbsp;</span><label for="gender-man" th:text="'*'+#{member.gender.man}">Man</label>
+						<span>&nbsp;</span><input type="radio" name="targetGender" id="gender-woman"  value="1" >
+						<span>&nbsp;</span><label for="gender-woman" th:text="'*'+#{member.gender.woman}">Woman</label>
+					</div>
+    				 <div class="col-md-3">
+    				 <label for="ageFrom" th:text="'*'+#{userProfile.ageFrom }">Age from</label><span>&nbsp;&nbsp;</span>
+    				<select id="ageFrom"  name="ageFrom">
+    				<option value="-1"></option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+						<option value="24">24</option>
+						<option value="25">25</option>
+						<option value="26">26</option>
+						<option value="27">27</option>
+						<option value="28">28</option>
+						<option value="29">29</option>
+						<option value="30">30</option>
+						<option value="31">31</option>
+						<option value="32">32</option>
+						<option value="33">33</option>
+						<option value="34">34</option>
+						<option value="35">35</option>
+						<option value="36">36</option>
+						<option value="37">37</option>
+						<option value="38">38</option>
+						<option value="39">39</option>
+						<option value="40">40</option>
+						<option value="41">41</option>
+						<option value="42">42</option>
+						<option value="43">43</option>
+						<option value="44">44</option>
+						<option value="45">45</option>
+						<option value="46">46</option>
+						<option value="47">47</option>
+						<option value="48">48</option>
+						<option value="49">49</option>
+						<option value="50">50</option>
+						<option value="51">51</option>
+						<option value="52">52</option>
+						<option value="53">53</option>
+						<option value="54">54</option>
+						<option value="55">55</option>
+						<option value="56">56</option>
+						<option value="57">57</option>
+						<option value="58">58</option>
+						<option value="59">59</option>
+						<option value="60">60</option>
+						<option value="61">61</option>
+						<option value="62">62</option>
+						<option value="63">63</option>
+						<option value="64">64</option>
+						<option value="65">65</option>
+						<option value="66">66</option>
+						<option value="67">67</option>
+						<option value="68">68</option>
+						<option value="69">69</option>
+						<option value="70">70</option>
+						<option value="71">71</option>
+						<option value="72">72</option>
+						<option value="73">73</option>
+						<option value="74">74</option>
+						<option value="75">75</option>
+    				</select>
+    				</div>
+    				 <div class="col-md-3">
+    				 <label for="ageTo" th:text="'*'+#{userProfile.ageTo}">Age to</label>
+    				<select id="ageTo"  name="ageTo">
+    				<option value="-1"></option>
+    					
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+						<option value="24">24</option>
+						<option value="25">25</option>
+						<option value="26">26</option>
+						<option value="27">27</option>
+						<option value="28">28</option>
+						<option value="29">29</option>
+						<option value="30">30</option>
+						<option value="31">31</option>
+						<option value="32">32</option>
+						<option value="33">33</option>
+						<option value="34">34</option>
+						<option value="35">35</option>
+						<option value="36">36</option>
+						<option value="37">37</option>
+						<option value="38">38</option>
+						<option value="39">39</option>
+						<option value="40">40</option>
+						<option value="41">41</option>
+						<option value="42">42</option>
+						<option value="43">43</option>
+						<option value="44">44</option>
+						<option value="45">45</option>
+						<option value="46">46</option>
+						<option value="47">47</option>
+						<option value="48">48</option>
+						<option value="49">49</option>
+						<option value="50">50</option>
+						<option value="51">51</option>
+						<option value="52">52</option>
+						<option value="53">53</option>
+						<option value="54">54</option>
+						<option value="55">55</option>
+						<option value="56">56</option>
+						<option value="57">57</option>
+						<option value="58">58</option>
+						<option value="59">59</option>
+						<option value="60">60</option>
+						<option value="61">61</option>
+						<option value="62">62</option>
+						<option value="63">63</option>
+						<option value="64">64</option>
+						<option value="65">65</option>
+						<option value="66">66</option>
+						<option value="67">67</option>
+						<option value="68">68</option>
+						<option value="69">69</option>
+						<option value="70">70</option>
+						<option value="71">71</option>
+						<option value="72">72</option>
+						<option value="73">73</option>
+						<option value="74">74</option>
+						<option value="75">75</option>
+    				</select>
+    				</div> 	
+    				<div class="col-md-1"></div>			
+    				
+
+    			</div><hr>
+    			<label for="userCountryId" th:text="#{userProfile.country}">Country</label>
+    			
+    			<span>&nbsp;&nbsp;</span><span class="userProfileSel" ></span>
+    			<div class="row">
+    			<div class="col-md-7">
+	
+            	<select class="samedim" id="userCountryId" multiple="multiple" name="countries">
+                <option value="Afghanistan">Afghanistan</option>
+                <option value="Aland Islands">Aland Islands</option>
+                <option value="Albania">Albania</option>
+                <option value="Algeria">Algeria</option>
+                <option value="American Samoa">American Samoa</option>
+                <option value="Andorra">Andorra</option>
+                <option value="Angola">Angola</option>
+                <option value="Anguilla">Anguilla</option>
+                <option value="Antarctica">Antarctica</option>
+                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                <option value="Argentina">Argentina</option>
+                <option value="Armenia">Armenia</option>
+                <option value="Aruba">Aruba</option>
+                <option value="Australia">Australia</option>
+                <option value="Austria">Austria</option>
+                <option value="Azerbaijan">Azerbaijan</option>
+                <option value="Bahamas">Bahamas</option>
+                <option value="Bahrain">Bahrain</option>
+                <option value="Bangladesh">Bangladesh</option>
+                <option value="Barbados">Barbados</option>
+                <option value="Belarus">Belarus</option>
+                <option value="Belgium">Belgium</option>
+                <option value="Belize">Belize</option>
+                <option value="Benin">Benin</option>
+                <option value="Bermuda">Bermuda</option>
+                <option value="Bhutan">Bhutan</option>
+                <option value="Bolivia">Bolivia</option>
+                <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                <option value="Botswana">Botswana</option>
+                <option value="Bouvet Island">Bouvet Island</option>
+                <option value="Brazil">Brazil</option>
+                <option value="British Indian Ocean Territory">British Indian Ocean Territory</option>
+                <option value="Brunei Darussalam">Brunei Darussalam</option>
+                <option value="Bulgaria">Bulgaria</option>
+                <option value="Burkina Faso">Burkina Faso</option>
+                <option value="Burundi">Burundi</option>
+                <option value="Cambodia">Cambodia</option>
+                <option value="Cameroon">Cameroon</option>
+                <option value="Canada">Canada</option>
+                <option value="Cape Verde">Cape Verde</option>
+                <option value="Cayman Islands">Cayman Islands</option>
+                <option value="Central African Republic">Central African Republic</option>
+                <option value="Chad">Chad</option>
+                <option value="Chile">Chile</option>
+                <option value="China">China</option>
+                <option value="Christmas Island">Christmas Island</option>
+                <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+                <option value="Colombia">Colombia</option>
+                <option value="Comoros">Comoros</option>
+                <option value="Congo">Congo</option>
+                <option value="Congo, The Democratic Republic of The">Congo, The Democratic Republic of The</option>
+                <option value="Cook Islands">Cook Islands</option>
+                <option value="Costa Rica">Costa Rica</option>
+                <option value="Cote D'ivoire">Cote D'ivoire</option>
+                <option value="Croatia">Croatia</option>
+                <option value="Cuba">Cuba</option>
+                <option value="Cyprus">Cyprus</option>
+                <option value="Czech Republic">Czech Republic</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Djibouti">Djibouti</option>
+                <option value="Dominica">Dominica</option>
+                <option value="Dominican Republic">Dominican Republic</option>
+                <option value="Ecuador">Ecuador</option>
+                <option value="Egypt">Egypt</option>
+                <option value="El Salvador">El Salvador</option>
+                <option value="Equatorial Guinea">Equatorial Guinea</option>
+                <option value="Eritrea">Eritrea</option>
+                <option value="Estonia">Estonia</option>
+                <option value="Ethiopia">Ethiopia</option>
+                <option value="Falkland Islands (Malvinas)">Falkland Islands (Malvinas)</option>
+                <option value="Faroe Islands">Faroe Islands</option>
+                <option value="Fiji">Fiji</option>
+                <option value="Finland">Finland</option>
+                <option value="France">France</option>
+                <option value="French Guiana">French Guiana</option>
+                <option value="French Polynesia">French Polynesia</option>
+                <option value="French Southern Territories">French Southern Territories</option>
+                <option value="Gabon">Gabon</option>
+                <option value="Gambia">Gambia</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Germany">Germany</option>
+                <option value="Ghana">Ghana</option>
+                <option value="Gibraltar">Gibraltar</option>
+                <option value="Greece">Greece</option>
+                <option value="Greenland">Greenland</option>
+                <option value="Grenada">Grenada</option>
+                <option value="Guadeloupe">Guadeloupe</option>
+                <option value="Guam">Guam</option>
+                <option value="Guatemala">Guatemala</option>
+                <option value="Guernsey">Guernsey</option>
+                <option value="Guinea">Guinea</option>
+                <option value="Guinea-bissau">Guinea-bissau</option>
+                <option value="Guyana">Guyana</option>
+                <option value="Haiti">Haiti</option>
+                <option value="Heard Island and Mcdonald Islands">Heard Island and Mcdonald Islands</option>
+                <option value="Holy See (Vatican City State)">Holy See (Vatican City State)</option>
+                <option value="Honduras">Honduras</option>
+                <option value="Hong Kong">Hong Kong</option>
+                <option value="Hungary">Hungary</option>
+                <option value="Iceland">Iceland</option>
+                <option value="India">India</option>
+                <option value="Indonesia">Indonesia</option>
+                <option value="Iran, Islamic Republic of">Iran, Islamic Republic of</option>
+                <option value="Iraq">Iraq</option>
+                <option value="Ireland">Ireland</option>
+                <option value="Isle of Man">Isle of Man</option>
+                <option value="Israel">Israel</option>
+                <option value="Italy">Italy</option>
+                <option value="Jamaica">Jamaica</option>
+                <option value="Japan">Japan</option>
+                <option value="Jersey">Jersey</option>
+                <option value="Jordan">Jordan</option>
+                <option value="Kazakhstan">Kazakhstan</option>
+                <option value="Kenya">Kenya</option>
+                <option value="Kiribati">Kiribati</option>
+                <option value="Korea, Democratic People's Republic of">Korea, Democratic People's Republic of</option>
+                <option value="Korea, Republic of">Korea, Republic of</option>
+                <option value="Kuwait">Kuwait</option>
+                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                <option value="Lao People's Democratic Republic">Lao People's Democratic Republic</option>
+                <option value="Latvia">Latvia</option>
+                <option value="Lebanon">Lebanon</option>
+                <option value="Lesotho">Lesotho</option>
+                <option value="Liberia">Liberia</option>
+                <option value="Libyan Arab Jamahiriya">Libyan Arab Jamahiriya</option>
+                <option value="Liechtenstein">Liechtenstein</option>
+                <option value="Lithuania">Lithuania</option>
+                <option value="Luxembourg">Luxembourg</option>
+                <option value="Macao">Macao</option>
+                <option value="Macedonia, The Former Yugoslav Republic of">Macedonia, The Former Yugoslav Republic of</option>
+                <option value="Madagascar">Madagascar</option>
+                <option value="Malawi">Malawi</option>
+                <option value="Malaysia">Malaysia</option>
+                <option value="Maldives">Maldives</option>
+                <option value="Mali">Mali</option>
+                <option value="Malta">Malta</option>
+                <option value="Marshall Islands">Marshall Islands</option>
+                <option value="Martinique">Martinique</option>
+                <option value="Mauritania">Mauritania</option>
+                <option value="Mauritius">Mauritius</option>
+                <option value="Mayotte">Mayotte</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Micronesia, Federated States of">Micronesia, Federated States of</option>
+                <option value="Moldova, Republic of">Moldova, Republic of</option>
+                <option value="Monaco">Monaco</option>
+                <option value="Mongolia">Mongolia</option>
+                <option value="Montenegro">Montenegro</option>
+                <option value="Montserrat">Montserrat</option>
+                <option value="Morocco">Morocco</option>
+                <option value="Mozambique">Mozambique</option>
+                <option value="Myanmar">Myanmar</option>
+                <option value="Namibia">Namibia</option>
+                <option value="Nauru">Nauru</option>
+                <option value="Nepal">Nepal</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Netherlands Antilles">Netherlands Antilles</option>
+                <option value="New Caledonia">New Caledonia</option>
+                <option value="New Zealand">New Zealand</option>
+                <option value="Nicaragua">Nicaragua</option>
+                <option value="Niger">Niger</option>
+                <option value="Nigeria">Nigeria</option>
+                <option value="Niue">Niue</option>
+                <option value="Norfolk Island">Norfolk Island</option>
+                <option value="Northern Mariana Islands">Northern Mariana Islands</option>
+                <option value="Norway">Norway</option>
+                <option value="Oman">Oman</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Palau">Palau</option>
+                <option value="Palestinian Territory, Occupied">Palestinian Territory, Occupied</option>
+                <option value="Panama">Panama</option>
+                <option value="Papua New Guinea">Papua New Guinea</option>
+                <option value="Paraguay">Paraguay</option>
+                <option value="Peru">Peru</option>
+                <option value="Philippines">Philippines</option>
+                <option value="Pitcairn">Pitcairn</option>
+                <option value="Poland">Poland</option>
+                <option value="Portugal">Portugal</option>
+                <option value="Puerto Rico">Puerto Rico</option>
+                <option value="Qatar">Qatar</option>
+                <option value="Reunion">Reunion</option>
+                <option value="Romania">Romania</option>
+                <option value="Russian Federation">Russian Federation</option>
+                <option value="Rwanda">Rwanda</option>
+                <option value="Saint Helena">Saint Helena</option>
+                <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                <option value="Saint Lucia">Saint Lucia</option>
+                <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon</option>
+                <option value="Saint Vincent and The Grenadines">Saint Vincent and The Grenadines</option>
+                <option value="Samoa">Samoa</option>
+                <option value="San Marino">San Marino</option>
+                <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                <option value="Saudi Arabia">Saudi Arabia</option>
+                <option value="Senegal">Senegal</option>
+                <option value="Serbia">Serbia</option>
+                <option value="Seychelles">Seychelles</option>
+                <option value="Sierra Leone">Sierra Leone</option>
+                <option value="Singapore">Singapore</option>
+                <option value="Slovakia">Slovakia</option>
+                <option value="Slovenia">Slovenia</option>
+                <option value="Solomon Islands">Solomon Islands</option>
+                <option value="Somalia">Somalia</option>
+                <option value="South Africa">South Africa</option>
+                <option value="South Georgia and The South Sandwich Islands">South Georgia and The South Sandwich Islands</option>
+                <option value="Spain">Spain</option>
+                <option value="Sri Lanka">Sri Lanka</option>
+                <option value="Sudan">Sudan</option>
+                <option value="Suriname">Suriname</option>
+                <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+                <option value="Swaziland">Swaziland</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Switzerland">Switzerland</option>
+                <option value="Syrian Arab Republic">Syrian Arab Republic</option>
+                <option value="Taiwan">Taiwan</option>
+                <option value="Tajikistan">Tajikistan</option>
+                <option value="Tanzania, United Republic of">Tanzania, United Republic of</option>
+                <option value="Thailand">Thailand</option>
+                <option value="Timor-leste">Timor-leste</option>
+                <option value="Togo">Togo</option>
+                <option value="Tokelau">Tokelau</option>
+                <option value="Tonga">Tonga</option>
+                <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                <option value="Tunisia">Tunisia</option>
+                <option value="Turkey">Turkey</option>
+                <option value="Turkmenistan">Turkmenistan</option>
+                <option value="Turks and Caicos Islands">Turks and Caicos Islands</option>
+                <option value="Tuvalu">Tuvalu</option>
+                <option value="Uganda">Uganda</option>
+                <option value="Ukraine">Ukraine</option>
+                <option value="United Arab Emirates">United Arab Emirates</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="United States">United States</option>
+                <option value="United States Minor Outlying Islands">United States Minor Outlying Islands</option>
+                <option value="Uruguay">Uruguay</option>
+                <option value="Uzbekistan">Uzbekistan</option>
+                <option value="Vanuatu">Vanuatu</option>
+                <option value="Venezuela">Venezuela</option>
+                <option value="Viet Nam">Viet Nam</option>
+                <option value="Virgin Islands, British">Virgin Islands, British</option>
+                <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
+                <option value="Wallis and Futuna">Wallis and Futuna</option>
+                <option value="Western Sahara">Western Sahara</option>
+                <option value="Yemen">Yemen</option>
+                <option value="Zambia">Zambia</option>
+                <option value="Zimbabwe">Zimbabwe</option>
+            </select>
+    			</div>   
+    			<div class="col-md-5">
+    					<br><input type="radio" id="inclusiveCountries"  name="countriesInclude" value="1" checked>
+						<span>&nbsp;</span><label for="inclusiveCountries" th:text="#{userProfile.option.inc}">Include</label>
+						<span>&nbsp;</span><input type="radio" id="exclusiveCountries" name="countriesInclude" value="0">
+						<span>&nbsp;</span><label for="exclusiveCountries" th:text="#{userProfile.option.exc}">Exclude</label>   
+					</div>  
+				</div> 
+				
+	
+    			<hr><label for="relStatus" th:text="#{userProfile.relStatus}">Relationship status</label>
+    			<span>&nbsp;&nbsp;</span>
+    		<!-- 	<span class="userProfileSel" th:text="${#strings.defaultString(targetProfile.relStatus,'not available')}"></span>	-->
+    			<span th:if="${targetProfile != null && targetProfile.relStatus != null}" class="userProfileSel" th:text="${targetProfile.relStatus}"></span>	 
+    				<div class="row">   				
+    				 <div class="col-md-7">
+    				<select id="relStatus"  multiple="multiple" name="relStatuses">
+    					
+    					<option value="1" th:text="#{userProfile.relStatus.options.single}"></option>
+    					<option value="2" th:text="#{userProfile.relStatus.options.inrelationship}"></option>
+    					<option value="3" th:text="#{userProfile.relStatus.options.married}"></option>
+    				</select>	
+    							    			
+    			</div>
+    			<div class="col-md-5">
+    					<br><input type="radio" id="inclusiveRelStatus" name="relStatusInclude" value="1" checked>
+						<span>&nbsp;</span><label for="inclusiveRelStatus" th:text="#{userProfile.option.inc}">Include</label>
+						<span>&nbsp;</span><input type="radio" id="exclusiveRelStatus" name="relStatusInclude" value="0">
+						<span>&nbsp;</span><label for="exclusiveRelStatus" th:text="#{userProfile.option.exc}">Exclude</label>
+						<span>&nbsp;&nbsp;</span>
+						<span th:if="${targetProfile != null && targetProfile.relStatusInclude != null}" class="userProfileSel" th:text="${targetProfile.relStatusInclude == true ? 'include' : 'exclude'}"></span>	
+					</div>
+				</div>
+    			
+    			<hr><label for="userChildren" th:text="#{userProfile.target.children}">Children</label>
+    			<span>&nbsp;&nbsp;</span>
+    			<span th:if="${targetProfile != null && targetProfile.childrenStatus != null}" class="userProfileSel" th:text="${targetProfile.childrenStatus}"></span>	
+    			<div class="row">
+    			
+				<!--  <span>&nbsp;&nbsp;</span><span class="userProfileSel" th:text="${userProfile.children}"></span>	-->	
+				<div class="col-md-7">
+					<select id="userChildren"  multiple="multiple" name="childrenStatuses">
+    					
+    					<option value="1" th:text="#{userProfile.target.children.options.notimportant}"></option>
+    					<option value="2" th:text="#{userProfile.target.children.options.important}"></option>
+    					<option value="3" th:text="#{userProfile.target.children.options.importantnotsmall}"></option>
+    					<option value="4" th:text="#{userProfile.target.children.options.nochildren}"></option>
+    				</select>	
+    				</div>
+					<div class="col-md-5">
+    					<input type="radio" id="inclusiveChildren" name="childrenStatusInclude" value="1" checked>
+						<span>&nbsp;</span><label for="inclusiveChildren" th:text="#{userProfile.option.inc}">Include</label>
+						<span>&nbsp;</span><input type="radio" id="exclusiveChildren" name="childrenStatusInclude" value="0">
+						<span>&nbsp;</span><label for="exclusiveChildren" th:text="#{userProfile.option.exc}">Exclude</label>
+						<span>&nbsp;&nbsp;</span>
+						<span th:if="${targetProfile != null && targetProfile.childrenStatusInclude != null}" class="userProfileSel" th:text="${targetProfile.childrenStatusInclude == true ? 'include' : 'exclude'}"></span>	
+					</div>
+				</div>
+    			
+    			<hr><label for="personalities" th:text="#{userProfile.personality}">Personality</label>
+    			<span>&nbsp;&nbsp;</span>
+    		<!-- 	<span th:if="${targetProfile != null && targetProfile.personalityType != null}" class="userProfileSel" th:text="${targetProfile.personalityType}"></span>	 -->
+    			<div class="row">	  				
+    			<!-- 	<span>&nbsp;&nbsp;</span><span class="userProfileSel" ></span>	 -->
+    				<div class="col-md-7">
+    				<select id="personalities"  multiple="multiple" name="personalities" >
+    					
+    					<option value="1" th:text="#{userProfile.personality.options.reserved}">Reserved</option>
+    					<option value="2" th:text="#{userProfile.personality.options.outgoing}">Outgoing</option>
+    					<option value="3" th:text="#{userProfile.personality.options.serious}">Serious</option>
+    					<option value="4" th:text="#{userProfile.personality.options.responsible}">Responsible</option>
+    					<option value="5" th:text="#{userProfile.personality.options.funny}">Funny</option>
+    					<option value="6" th:text="#{userProfile.personality.options.moody}">Moody</option>
+    					<option value="7" th:text="#{userProfile.personality.options.cheerful}">Cheerful</option>
+    					<option value="8" th:text="#{userProfile.personality.options.nostalgic}">Nostalgic</option>
+    					<option value="9" th:text="#{userProfile.personality.options.carefree}">Carefree</option>
+    					<option value="10" th:text="#{userProfile.personality.options.careless}">Careless</option>
+    				</select>	
+    				</div>
+					<div class="col-md-5">
+    					<input type="radio" id="inclusivePersonalities" name="personalitiesInclude" value="1" checked>
+						<span>&nbsp;</span><label for="inclusivePersonalities" th:text="#{userProfile.option.inc}">Include</label>
+						<span>&nbsp;</span><input type="radio" id="exclusivePersonalities" name="personalitiesInclude" value="0">
+						<span>&nbsp;</span><label for="exclusivePersonalities" th:text="#{userProfile.option.exc}">Exclude</label>
+						<span>&nbsp;&nbsp;</span>
+						<span th:if="${targetProfile != null && targetProfile.personalityTypeInclude != null}" class="userProfileSel" th:text="${targetProfile.personalityTypeInclude == true ? 'include' : 'exclude'}"></span>	
+					</div>
+    			</div>
+    			
+    			<!-- employment status -->
+    			<hr><label for="userEmploymentId" th:text="#{userProfile.employment.status}">Employment status</label>
+    			<span>&nbsp;&nbsp;</span>
+    			<span th:if="${targetProfile != null && targetProfile.employmentStatus != null}" class="userProfileSel" th:text="${targetProfile.employmentStatus}"></span>
+    			<div class="row">
+				
+    		<!-- 	<span>&nbsp;&nbsp;</span><span class="userProfileSel" th:text="${userProfile.employment.status}"></span>	-->	
+    		<div class="col-md-7">
+				<select class="samedim" id="userEmploymentId"   multiple="multiple" name="employmentStatuses">
+				<option value="-1"></option>
+    			<option value="1" th:text="#{userProfile.employment.status.options.unemployed}"></option>
+    			<option value="2" th:text="#{userProfile.employment.status.options.employee}"></option>
+    			<option value="3" th:text="#{userProfile.employment.status.options.employer}"></option>
+    			<option value="4" th:text="#{userProfile.employment.status.options.parttime}"></option>
+				</select>
+				</div>
+				<div class="col-md-5">
+    					<br><input type="radio" id="inclusiveEmp" name="employmentStatusInclude" value="1" checked>
+						<span>&nbsp;</span><label for="inclusiveEmp" th:text="#{userProfile.option.inc}">Include</label>
+						<span>&nbsp;</span><input type="radio" id="exclusiveEmp" name="employmentStatusInclude" value="0">
+						<span>&nbsp;</span><label for="exclusiveEmp" th:text="#{userProfile.option.exc}">Exclude</label>
+						<span>&nbsp;&nbsp;</span>
+						<span th:if="${targetProfile != null && targetProfile.employmentStatusInclude != null}"  class="userProfileSel" th:text="${targetProfile.employmentStatusInclude == true ? 'include' : 'exclude'}"></span>
+					</div>
+				</div>
+    			
+    			
+    			<hr><label for="userEduLevelId" th:text="#{userProfile.eduLevel}">Education level</label>
+    			<span>&nbsp;&nbsp;</span>
+    			<span th:if="${targetProfile != null && targetProfile.eduLevel != null}"  class="userProfileSel" th:text="${targetProfile.eduLevel}"></span>
+    			<div class="row">	  				
+    			<!-- 	<span>&nbsp;&nbsp;</span><span class="userProfileSel" ></span>	 -->
+    				
+    			<div class="col-md-7">
+    				<select id="eduLevel"  multiple="multiple" name="eduLevels">
+    					<option value="-1"></option>
+    					<option value="1" th:text="#{userProfile.eduLevel.options.primary}">Primary</option>
+    					<option value="2" th:text="#{userProfile.eduLevel.options.secondary}">Secondary</option>
+    					<option value="3" th:text="#{userProfile.eduLevel.options.college}">College</option>
+    					<option value="4" th:text="#{userProfile.eduLevel.options.university}"></option>
+    					<option value="5" th:text="#{userProfile.eduLevel.options.university+}"></option>
+    				</select>	
+    				</div>
+    				<div class="col-md-5">
+    					<input type="radio" id="inclusiveEdu" name="eduLevelsInclude" value="1" checked>
+						<span>&nbsp;</span><label for="inclusiveEdu" th:text="#{userProfile.option.inc}">Include</label>
+						<span>&nbsp;</span><input type="radio" id="exclusiveEdu" name="eduLevelsInclude" value="0">
+						<span>&nbsp;</span><label for="exclusiveEdu" th:text="#{userProfile.option.exc}">Exclude</label>
+						<span>&nbsp;&nbsp;</span>
+						<span th:if="${targetProfile != null && targetProfile.eduLevelInclude != null}" class="userProfileSel" th:text="${targetProfile.eduLevelInclude == true ? 'include' : 'exclude'}"></span>
+					</div>    							
+    			</div>  			
+    		
+    		<hr><label for="userBodyTypeId" th:text="#{userProfile.bodytype}">Body type</label>	
+    		<span>&nbsp;&nbsp;</span>
+    		<span th:if="${targetProfile != null && targetProfile.bodyType != null}" class="userProfileSel" th:text="${targetProfile.bodyType}"></span>
+    			<div class="row">				  				
+    			<!-- 	<span>&nbsp;&nbsp;</span><span class="userProfileSel" ></span>	 -->    				
+    				<div class="col-md-7">
+    				<select id="bodyType"  multiple="multiple" name="bodyTypes">    	
+    				<option value="-1"></option>				
+    					<option value="1" th:text="#{userProfile.bodytype.options.slim}"></option>
+    					<option value="2" th:text="#{userProfile.bodytype.options.normal}"></option>
+    					<option value="3" th:text="#{userProfile.bodytype.options.slightly_overweight}"></option>
+    					<option value="4" th:text="#{userProfile.bodytype.options.overweight}"></option>    					
+    					<option value="5" th:text="#{userProfile.bodytype.options.athletic}"></option>
+    				</select>	
+    				</div>
+    				<div class="col-md-5">
+    					<input type="radio" id="inclusiveBody" name="bodyTypesInclude" value="1" checked>
+						<span>&nbsp;</span><label for="inclusiveBody" th:text="#{userProfile.option.inc}">Include</label>
+						<span>&nbsp;</span><input type="radio" id="exclusiveBody" name="bodyTypesInclude" value="0">
+						<span>&nbsp;</span><label for="exclusiveBody" th:text="#{userProfile.option.exc}">Exclude</label>
+						<span>&nbsp;&nbsp;</span>
+						<span th:if="${targetProfile != null && targetProfile.bodyTypeInclude != null}" class="userProfileSel" th:text="${targetProfile.bodyTypeInclude == true ? 'include' : 'exclude'}"></span>
+					</div>    				
+    			</div>
+    			 <hr>			
+    			<input type="hidden" id="numUserSearch" th:value="${numUserSearchPage}">
+    			<button class="btn-save" id="searchUserTargetProfileBtn" th:text="#{userProfile.button.search}">Search</button><span>&nbsp;&nbsp;&nbsp;</span>
+    			<button  type="button" class="btn-save" id="saveUserProfileBtn" th:text="#{userProfile.button.save}">Save</button>
+    			
+    			</form>
+    			
+				<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script> 
+				<script type="text/javascript" src="/js/targetProfile.js"></script>		
+				<script th:inline="javascript">
+				$(document).ready(function(){
+					adminModule.init();
+					targetProfileModule.init();
+					var searchProfile = [[${targetProfile}]];
+					if(searchProfile)
+						targetProfileModule.populateSearchProfile(searchProfile);
+				
+				})
+				</script>
+    			</div>
+   		 		
+	
+</body>
+</html>

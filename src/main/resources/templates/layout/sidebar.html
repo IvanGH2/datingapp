@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+</head>
+<body>
+	
+    			<div class="col-md-2 sidebar" th:fragment="sidebarFragment">
+    			
+      				<p><a href="userProfile" id="showCred" th:text="#{userProfile}">User profile</a>
+      				<p><a href="/userSearch" th:text="#{userProfile.target.search}" >Search profile</a>
+      				<p><a  href="/retrieveMessages" th:text="#{member.message.link}">Messages</a>
+      				<a id="sseMsg" class="nvis" href="/messagesSse" ><span class="sseEvent" id="numNewMsg"></span></a>     				
+      				<p><a href="/profileViewsSrc" th:text="#{member.views.visitedBy}">Profile visited by</a>
+      				<a id="sseView" class="nvis" href="/profileViewsSrc" ><span class="sseEvent" id="numNewView">2</span></a>
+      				<p><a href="/profileViewsDst" th:text="#{member.views.visited}">Profiles visited</a>
+      				<br><br><p><a sec:authorize="hasAnyAuthority('admin', 'mod')" th:href="@{~/flaggedMessages?offset=0&numRec=3}" th:text="#{msg.flagged}">Flagged messages</a>
+      				<p><a sec:authorize="hasAuthority('admin')" th:href="@{~/manageUsers}" th:text="#{user.manage}">Manage users</a>
+   		 		</div>
+	
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  >
+<head>
+</head>
+<body>				
+    			<div  th:fragment="contentFragment">    			<!-- th:if="${member.profileCompleted == true}" th:text="${userProfile.relStatus}" th:text="${userProfile.country}" th:text="${userProfile.residence}"-->
+    			<h4 th:if="${page == 'PROFILE_VIEWS_DST'}" th:text="#{member.views.visited}">User profile views</h4><hr class="thick" th:if="${page == 'PROFILE_VIEWS_DST'}">
+    			<h4 th:unless="${page == 'PROFILE_VIEWS_DST'}" th:text="#{member.views.visitedBy}">User profile views</h4><hr class="thick" th:unless="${page == 'PROFILE_VIEWS_DST'}">
+    			
+    			<div  id="profile_views_wrapper" ></div>
+
+    			<!-- <input type="hidden" id="numCtxViews" th:value="${session.numCtxViews}">  -->
+    			<input type="hidden" id="numCtxViews" th:value="${user_ctx_views_count}">
+    			<input type="hidden" id="viewPage" th:value="${page}">
+    			<div th:if="${user_ctx_views_count > 0}"  class="row">
+    			
+    				<!-- <div class="col-md-1"></div> -->
+    				<div class="col-md-4">
+    				<label th:text="#{view.numPerPage}">Views per page</label>
+    				<select  id="selNumViews">
+    					<option value=3 th:selected="${user_views_count == 3}">3</option>
+    					<option value=4 th:selected="${user_views_count == 4}">4</option>
+    					<option value=5 th:selected="${user_views_count == 5}">5</option>
+    					<option value=6 th:selected="${user_views_count == 6}">6</option>
+    					<option value=7 th:selected="${user_views_count == 7}">7</option>
+    				</select>
+    				</div>
+    				<div class="col-md-2"></div>
+    				<div class="col-md-6">
+    					<button class="btn-nav" id="prevViewBtn" type="button"  th:text="#{paging.prev.btn}">Previous</button>
+    					<button class="btn-nav-sm" id="firstViewBtn" type="button"  >1</button>
+    					<span id="pageSpacer">.....</span>
+    					<button class="btn-nav-sm" id="lastViewBtn" type="button" th:text="#{paging.last.btn}" >Last</button>
+    					<button class="btn-nav" id="nextViewBtn" type="button"  th:text="#{paging.next.btn}">Next</button>
+    					
+    				</div> 
+    			</div>  
+    			<div th:unless="${user_ctx_views_count > 0}">
+    			<!-- 	<span th:if="${page == 'PROFILE_VIEWS_DST'}" th:text="#{views.search.noresults}">No views visited!</span>
+    				<span th:if="${page == 'PROFILE_VIEWS_SRC'}" th:text="#{views.search.noresults}">No views visited!</span> -->
+    				<span  th:text="#{views.search.noresults}">No views visited!</span>
+    			</div> 	
+    			<div layout:fragment="modals">
+				<div th:replace="pages/userProfileModal :: userProfile(id='userProfileModal')"></div>		
+				<div th:replace="pages/sendMsgModal :: sendMsg(id='sendMsgModal')"></div>		
+				</div>
+				<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script> 
+			<!-- 	<script type="text/javascript" src="/js/userContent.js"></script>		 -->
+				
+				<script th:inline="javascript">
+				$(document).ready(function(){
+					adminModule.init();
+					userContent.init();
+	
+					var numViews = [[${user_ctx_views_count}]];
+					var numViewsPerPage = [[${user_views_count}]];
+					console.log(numViews);
+					console.log(numViewsPerPage);
+					//var page 		= [[${page}]]	
+					if(numViews > 0)
+						userContent.retrieveViews(0, numViewsPerPage, numViews);					
+				})
+				</script>
+    			</div>
+   		 		
+	
+</body>
+</html>

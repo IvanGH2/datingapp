@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  >
+<head>
+</head>
+<body>				
+    			<div  th:fragment="contentFragment">    			
+    			
+    			<div id="latestInfo" >
+    			<h4 th:text="#{login.user.welcome.info}">Latest info</h4><hr class="thick">
+    			
+    			<br><div  class="row">
+    			
+    			
+    			<span class="welcome-info" th:text="${msgnewcount}">  </span>
+    					
+    			</div>
+    			<br>
+    			<div class="row">	
+    			<span class="welcome-info" th:text="${viewnewcount}">  </span>
+    			</div>
+    			
+    			</div>   
+    			  <script th:inline="javascript">
+				$(document).ready(function(){
+					//ctxPage = [[${page}]];
+					commonModule.initSse();
+					commonModule.init();
+					userContent.init();
+					adminModule.init();
+					
+				})
+				</script>
+    		</div>
+   		 		
+</body>
+</html>

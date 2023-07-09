@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" layout:decorator="layout/layout">
+<head>
+
+<link th:href="@{/js/plugins/filepond/css/filepond.min.css}" rel="stylesheet" media="screen" />
+<link th:href="@{/js/plugins/filepond/css/filepond-plugin-image-preview.min.css}" rel="stylesheet" media="screen" />
+<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+<link th:href="@{/css/select2/select2.css}" rel="stylesheet" />
+<link th:href="@{/css/select2/select2-bootstrap.css}" rel="stylesheet"  />
+<link th:href="@{/css/common.css}" rel="stylesheet" media="screen" />
+<!-- <link th:href="@{/css/txtSlider.css}" rel="stylesheet" media="screen" />  -->
+<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/common.js"></script>
+	<script type="text/javascript" src="/js/administration.js"></script>	
+	<script type="text/javascript" src="/js/userContent.js"></script>
+	<script th:if="${#strings.equals(#locale, 'en')}" type="text/javascript" src="/js/lang/message_en.js"></script>
+	<script th:if="${#strings.equals(#locale, 'hr')}" type="text/javascript" src="/js/lang/message_hr.js"></script> 
+	
+<style type="text/css">
+p.introTxt {
+	
+	font-size: 20px;
+    color: grey;
+}
+img.cImg{
+	min-height: 400px;
+	min-width:300px;
+	border: 5px solid rgb(210, 210, 210);
+
+	}
+div.intro{
+	margin-top: 50px;
+	margin-bottom: 50px;
+	padding: 20px;
+	border-width:  5px;
+	border-color: rgb(250,210,210);
+	border-radius:4px;
+	border-style: solid;
+	
+}
+</style>
+</head>
+<body>
+	
+	<div layout:fragment="content">
+	<div  class="row remove-margin intro">
+	
+	<div class="col-md-5">
+		<img src="/images/couple.jpg" class="cImg"></img>
+	</div>
+
+	<div class="col-md-7">
+		<div class="row">
+		<p class="introTxt" th:text="#{app.intro.txt1}">Letsclick is an open-source dating application. The main objective of letsclick is to give users the opportunity to meet
+		someone without having to pay for it.</p>
+		</div>
+		
+		 <div class="row">
+		<p class="introTxt" th:text="#{app.intro.txt2}">We sincerely hope that your experience here is pleasant and we'll make sure to do that.We sincerely hope that your experience here is pleasant and we'll make sure to do that.</p>
+		</div> 
+	</div>
+	</div>
+
+	<div layout:fragment="modals">
+		<div th:replace="pages/signinModal :: signin(id='signinModal')"></div>
+		<div th:replace="pages/regModal :: registerUser(id='regModal')"></div>
+		<div th:replace="pages/retrieveCredentialsModal :: retrieveCredentials(id='retrieveCredentialsModal')"></div>	
+
+	</div>
+	
+	<script th:inline="javascript">
+			$(document).ready(function(){
+				
+				commonModule.init();
+				adminModule.init();
+				userContent.init();
+				errVal =  [[${errorMsg}]];
+				if( errVal != null ){
+					$('#signInLink').trigger('click');
+				}else{
+				 //explicitly setting the language makes Spring aware of it, and internationalization then works as expected
+				//without this, the Thymealeaf #locale variable is not set initially, and certain js files are included based on #locale
+				 	url = location.href;
+					if(!url.includes('?lang')) 
+						location.href = url + '?lang=en';	
+				}
+			})
+		</script>
+	</div>
+
+</body>
+
+</html>

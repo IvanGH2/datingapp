@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  >
+<head>
+
+
+</head>
+<body>				
+    			<div  th:fragment="contentFragment">    			
+    			
+    			<div id="adminUser" >
+    			
+    			<br><div  class="row">
+    			    
+    			    
+    				<div class="col-md-4">
+    					<label th:text="#{login.username}">Username</label>
+    					<input type="text" id="username" /> 
+    				</div>
+    				<div class="col-md-4"></div>
+    				<div class="col-md-4">
+    					
+    					<br> <input type="button" id="btnGetUser" th:value="#{user.retrieve.btn}" class="btn-msg">
+    				</div>
+    			</div>
+    			<div th:if="${userRetrieved == false && userProvided == true}" id="userDetails" class="row">
+    			<h4 class="no-user" th:text="${msg}"></h4>
+    			</div>
+    			<th:block th:if="${userRetrieved == true}">
+    			<hr>
+    			<div id="userDetails" class="row">
+    			
+    				<div class="col-md-3"><span class="user-info" th:text="#{login.username}"></span>		
+    				<span  id="targetUser" class="userProfileSel" th:text="${user.username}"></span>
+    				</div>
+    				
+    				
+    				<div class="col-md-3">
+    				<span  class="user-info"th:text="#{member.since}"></span>
+    				<span class="userProfileSel" th:text="${user.since}"></span>
+    				</div>
+    				
+    				<div class="col-md-3">
+    				<span class="user-info" th:text="#{member.lastActivity}"></span>
+    				<span class="userProfileSel" th:text="${user.lastActivity}"></span>
+    				</div>
+    				
+    				<div class="col-md-2">
+    				<span class="user-info"th:text="#{member.role}"></span>
+    				<span class="userProfileSel" th:text="${user.role}"></span>
+    				</div>
+    			</div><br>
+    			<div class="row">
+    				<div class="col-md-3">
+    					<input class="btn-manage" type="button" id="btnAddRole"  th:value="#{user.promote.mod}"  />
+    				</div> 
+    			<!--	<div class="col-md-2">
+    					<input type="button" id="btnPromoteAdmin" class="btn-manage" th:value="#{user.promote.admin}"  />
+    				</div>-->
+    				
+    				<div th:if="${user.role != 'User'}" class="col-md-3">
+    					<input class="btn-manage" type="button" id="btnRemoveRole"  th:value="#{user.mod.remove}"  />
+    				</div>
+    				<div class="col-md-3">
+    					<input class="btn-manage" type="button" id="btnBlockUser"  th:value="#{user.block}"  />
+    				</div>
+    			</div>
+    			</th:block>
+    		<!-- 	<input type="hidden" th:value="${msg.msgId}" >  -->
+    		
+    			</div>
+    	
+				<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script> 
+				<!--<script type="text/javascript" src="/js/userContent.js"></script>	-->	
+				<!--<script type="text/javascript" src="/js/photoUpload.js"></script>-->
+				  <script th:inline="javascript">
+				$(document).ready(function(){
+					adminModule.init();
+					userContent.init();
+					
+				
+				})
+				</script>
+    			</div>
+   		 		
+	
+</body>
+</html>

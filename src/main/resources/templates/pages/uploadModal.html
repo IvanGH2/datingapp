@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link th:href="@{/js/plugins/filepond/css/filepond.min.css}" rel="stylesheet" media="screen" />
+<link th:href="@{/js/plugins/filepond/css/filepond.css}" rel="stylesheet" media="screen" />
+<link th:href="@{/js/plugins/filepond/css/filepond-plugin-image-preview.min.css}" rel="stylesheet" media="screen" />
+</head>
+<body>
+	<!-- Modal -->
+	<div class="modal fade" id="uploadModal" th:id="${id}" tabindex="-1" role="dialog" th:fragment="uploadModal(id)">
+		<div class="modal-dialog modal-lg" role="document">
+			<div  class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title uploadModalTitle" th:text="#{upload.title}">Upload</h4>
+				</div>
+				<div id="phUploader" class="modal-body upload-modal-body">
+				 	<form id="photoUploaderForm"  action="@{/createUserProfile/savePhotos}" method="post" enctype="multipart/form-data"> 
+						<div class="row fileupload-buttonbar">
+							<div  class="col-sm-6">
+								<span class="btn btn-success fileinput-button">
+									<i class="glyphicon glyphicon-plus"></i>
+									<span th:text="#{common.button.add}">Add photos</span>
+									<input class="filepond" type="file" id="photoUploaderIn"   data-max-files="3" name="filepond">
+								</span>
+								<input type="hidden" name="echo" value="10">
+								<button id="photoUploadBtn" type="button" class="btn btn-primary start">
+									<i class="glyphicon glyphicon-upload"></i>
+									<span th:text="#{upload.submit}">Save</span>
+								</button>
+
+								<button type="reset" class="btn btn-danger" onclick="photoUploadModule.resetUpload()">
+									<i class="glyphicon glyphicon-ban-circle"></i>
+									<span th:text="#{common.button.cancel}">Cancel</span>
+								</button>
+								<span class="fileupload-process"></span>
+							</div>
+
+							<!-- The global progress state -->
+							<div class="col-sm-6 fileupload-progress fade">
+								<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+									<div class="progress-bar progress-bar-success" style="width: 0%;"></div>
+								</div>
+								<div class="progress-extended">&nbsp;</div>
+							</div>
+						</div>
+
+						<p th:text="#{upload.info}">Moguće je arhivirati više od jednog dokumenta istovremeno.</p>
+
+						<div class="form-group row">
+							<div class="col-sm-12">
+								<table role="presentation" class="table table-striped">
+									<tbody class="files"></tbody>
+								</table>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer modal-inline">
+					<button type="submit" class="btn btn-primary" data-dismiss="modal" th:text="#{common.button.close}">Zatvori</button>
+				</div>
+			</div>
+		</div>
+				<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
+    			
+    			<script type="text/javascript" src="/js/plugins/filepond/js/filepond.min.js"></script>
+    			<script type="text/javascript" src="/js/plugins/filepond/js/filepond-plugin-image-preview.min.js"></script>
+    			<script type="text/javascript" src="/js/plugins/filepond/js/filepond-plugin-image-exif-orientation.min.js"></script>
+    			<script type="text/javascript" src="/js/plugins/filepond/js/filepond-plugin-file-validate-type.min.js"></script>
+    			<script type="text/javascript" src="/js/photoUpload.js"></script>
+				<script th:inline="javascript">
+				$(document).ready(function(){
+					fileUploadModule.init();
+				
+			})
+			</script>
+	</div>
+</body>
+</html>

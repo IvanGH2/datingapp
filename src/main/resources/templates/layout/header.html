@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+</head>
+<body>
+
+	<!-- <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0" th:fragment="headerFragment">-->
+		<div class="container header" th:fragment="headerFragment">
+		<div class="row" >
+			
+				<div class="col-md-2 navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only" th:text="#{nav.toogle}"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- 
+					<a class="nvis" id="link_hr_HR" href="/letsclick?lang=hr" th:text="#{lang.cro}">Croatian</a>
+					<a class="nvis" id="link_en_GB" href="/letsclick?lang=en" th:text="#{lang.eng}">English</a> -->
+					
+					<ul class="nav navbar-top-links navbar-left">
+					<li><span>&nbsp;</span></li>
+					<li><span th:text="#{lang.change}"></span>:
+						<select id="locales">
+    					<option value=""></option>
+    					<option value="en" th:text="#{lang.eng}"></option>
+    					<option value="hr" th:text="#{lang.cro}" ></option>
+						</select></li>
+					</ul>
+					
+				</div>
+				
+				<div class="col-md-8">	
+					<!-- <th:block   th:replace="/controls/textSlider :: textSliderFragment" ></th:block>	 	 -->			
+				</div>
+
+				<div class="col-md-2">
+				<ul class="nav  navbar-right list-group-horizontal">
+					<li><a class="loginbtn" th:unless="${session.userSignedIn == true}"  id="registerLink" href="#" th:text="#{register.link}">							
+							<i class="fa fa-sign-in fa-fw"></i>Register
+						</a><li>
+					<li><form th:if="${session.userSignedIn == true}" id="signOutForm" th:action="@{/logout}" method="post"></form>
+						<a  class="loginbtn" th:if="${session.userSignedIn == true}"  href="#" th:text="#{nav.signout}" id="signOutLink">
+							Sign out
+						</a>
+						
+						<a class="loginbtn" th:unless="${session.userSignedIn == true}"  id="signInLink" href="#" th:text="#{nav.signin}">							
+							<i class="fa fa-sign-in fa-fw"></i>Sign in
+						</a>
+					</li>
+					<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+				</ul>
+				</div>
+		</div><br>
+		<div th:if="${session.userSignedIn == true}" class="row" >
+		
+			<div class="col-md-2">
+			<span class="welcome" th:text="#{login.user.welcome} + ' ' + ${session.currUser}">Welcome </span>
+			</div>
+		</div>
+		
+	</div>
+</body>
+</html>

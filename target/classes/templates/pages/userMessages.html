@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  >
+<head>
+
+</head>
+<body>				
+    			<div  th:fragment="contentFragment">    			<!-- th:if="${member.profileCompleted == true}" th:text="${userProfile.relStatus}" th:text="${userProfile.country}" th:text="${userProfile.residence}"-->
+    			<h4 th:text="#{member.conversations}">User conversations</h4><hr class="thick">
+    			
+    			
+    			<div id="members_msg_wrapper" >
+    			
+    			</div>
+    			
+    			<input type="hidden" id="numMsgUsers" th:value="${all_user_msg_count}">
+    			<hr th:if="${all_user_msg_count > 0}" class="thick">
+    			<div th:if="${all_user_msg_count > 0}"  class="row">
+    				
+    				<!-- <div class="col-md-1"></div> -->
+    				<div class="col-md-4">
+    				<label th:text="#{msg.numPerPage}">Messages per page</label>
+    				<select  id="selNumMessages">
+    					<option value=3 th:selected="${msg_users_count == 3}">3</option>
+    					<option value=4 th:selected="${msg_users_count == 4}">4</option>
+    					<option value=5 th:selected="${msg_users_count == 5}">5</option>
+    					<option value=6 th:selected="${msg_users_count == 6}">6</option>
+    					<option value=7 th:selected="${msg_users_count == 7}">7</option>
+    				</select>
+    			
+    				</div>
+    				<div class="col-md-2"></div>
+    				<div class="col-md-6">
+    					<button class="btn-nav" id="prevMsgBtn" type="button"  th:text="#{paging.prev.btn}">Previous</button>
+    					<button class="btn-nav-sm" id="firstMsgBtn" type="button"  >1</button>
+    					<span id="pageSpacer">.....</span>
+    					<button class="btn-nav-sm" id="lastMsgBtn" type="button"  th:text="#{paging.last.btn}">Last</button>
+    					<button class="btn-nav" id="nextMsgBtn" type="button"  th:text="#{paging.next.btn}">Next</button>
+    					
+    				</div> 
+    			</div>   	
+    			<div th:unless="${all_user_msg_count > 0}"  >
+    				<span  th:text="#{msg.notavailable}">No messages!</span>
+    			</div>
+    			<div layout:fragment="modals">
+				<div th:replace="pages/userProfileModal :: userProfile(id='userProfileModal')"></div>		
+				<div th:replace="pages/sendMsgModal :: sendMsg(id='sendMsgModal')"></div>		
+				</div>
+				<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script> 
+				
+			<!-- 	<script th:if="${session.lang == 'en'}" type="text/javascript" src="/js/lang/message_en.js"></script>
+				<script th:if="${session.lang == 'hr'}" type="text/javascript" src="/js/lang/message_hr.js"></script>
+			 	<script type="text/javascript" src="/js/userContent.js"></script>	 	 --> 
+				
+				<script th:inline="javascript">
+				$(document).ready(function(){
+					//showMsg = [[${showMsg}]];
+					commonModule.init();
+					commonModule.initSse();
+					adminModule.init();
+					userContent.init();
+
+				 var msgNumRecords = parseInt($('#selNumMessages').val());
+				 userContent.retrieveMessages(0, msgNumRecords, 0);												
+				})
+				</script>
+    			</div>		 			
+</body>
+</html>

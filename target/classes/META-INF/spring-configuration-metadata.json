@@ -1,0 +1,12 @@
+{
+  "groups": [
+    {
+      "name": "datasource.ngd",
+      "type": "javax.sql.DataSource",
+      "sourceType": "ngd.config.DataSourceConfig",
+      "sourceMethod": "public javax.sql.DataSource ngdDS() "
+    }
+  ],
+  "properties": [],
+  "hints": []
+}

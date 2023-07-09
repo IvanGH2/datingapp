@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4" layout:decorator="layout/layout">
+<head>
+
+<link th:href="@{/js/plugins/filepond/css/filepond.min.css}" rel="stylesheet" media="screen" />
+<link th:href="@{/js/plugins/filepond/css/filepond-plugin-image-preview.min.css}" rel="stylesheet" media="screen" />
+<link th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" rel="stylesheet" media="screen" />
+<link th:href="@{/css/select2/select2.css}" rel="stylesheet" />
+<link th:href="@{/css/select2/select2-bootstrap.css}" rel="stylesheet"  />
+<link th:href="@{/css/common.css}" rel="stylesheet" media="screen" />
+<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/administration.js"></script>
+<script type="text/javascript" src="/js/userContent.js"></script>
+<script th:if="${#strings.equals(#locale, 'en')}" type="text/javascript" src="/js/lang/message_en.js"></script>
+<script th:if="${#strings.equals(#locale, 'hr')}" type="text/javascript" src="/js/lang/message_hr.js"></script>  
+<!-- <link rel="icon"  th:href="@{/images/tis-logo.png}" /> -->
+</head>
+<body>
+	
+	<div layout:fragment="content">
+	<div class="row remove-margin">
+		<div th:replace="layout/sidebar :: sidebarFragment"></div>
+		<div class="col-md-8">
+			<input type="hidden" th:value="${signedIn == true}" >
+			
+			<!--  <div th:if="${signedIn == true}"> -->
+			<div th:switch="${page}">
+				<div  th:case="'USER_PROFILE'">
+					<div  th:replace="pages/userProfile :: contentFragment"></div>
+				</div>
+				<div th:case="'TARGET_PROFILE'">
+					<div  th:replace="pages/targetProfile :: contentFragment"></div>
+				</div>
+				<div th:case="'USER_SEARCH'">
+					<div  th:replace="pages/searchProfile :: contentFragment"></div>
+				</div>
+				<div th:case="'USER_MEMBERS'">
+					<div  th:replace="pages/userMain :: contentFragment"></div>
+				</div>
+				<div th:case="'WELCOME'">
+					<div  th:replace="pages/userWelcome :: contentFragment"></div>
+				</div>
+				<div th:case="'USER_MESSAGES'">
+					<div  th:replace="pages/userMessages :: contentFragment"></div>
+				</div>
+				<div th:case="'LOGIN_FAILED'">
+					<div  th:replace="/pages/loginFailed :: contentFragment"></div>
+				</div>
+				<div th:case="'PROFILE_VIEWS_DST'">
+					<div  th:replace="pages/userProfileViews :: contentFragment"></div>
+				</div>
+				<div th:case="'PROFILE_VIEWS_SRC'">
+					<div  th:replace="pages/userProfileViews :: contentFragment"></div>
+				</div>
+				<div th:case="'FLAGGED_MESSAGES'">
+					<div  th:replace="pages/flaggedMessages :: contentFragment"></div>
+				</div>
+				<div th:case="'MANAGE_USER'">
+					<div  th:replace="pages/adminUser :: contentFragment"></div>
+				</div>
+				<div th:case="*">
+					
+				<!-- 	<div th:replace="/pages/userMain :: contentFragment"></div> -->
+				</div>
+			</div>
+			
+		</div>
+		<div th:replace="layout/adsbar :: adsbarFragment"></div>
+		<!-- <input type="hidden" th:text="${#locale}" id="locale" > -->
+	</div>
+
+	
+	<div layout:fragment="modals">
+		<div th:replace="pages/signinModal :: signin(id='signinModal')"></div>
+		<div th:replace="pages/regModal :: registerUser(id='regModal')"></div>
+		<div th:replace="pages/retrieveCredentialsModal :: retrieveCredentials(id='retrieveCredentialsModal')"></div>	
+		
+	</div>
+ <!-- 	<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript" src="/js/common.js}"></script>
+	<script type="text/javascript" src="/js/administration.js"></script>
+	 <script type="text/javascript" src="/js/userContent.js"></script>
+	<script type="text/javascript" src="/js/lang/message_en.js"></script> -->
+
+	<script th:inline="javascript">
+			$(document).ready(function(){
+				ctxPage = [[${page}]];
+				commonModule.init();
+				adminModule.init();
+			//	messageContent.init();
+				userContent.init();
+				
+				
+			})
+		</script>
+	</div>
+
+</body>
+
+</html>
