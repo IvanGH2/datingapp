@@ -28,6 +28,9 @@ runnable application.
 There's one key difference in the configuration between running the app in the IDE and outside of the IDE. For IDE, you should uncomment ngd.ext-resource.location=static/user/images/ entry 
 in /resources/config/application-ngd.properties, whereas outside of the IDE you should uncomment ngd.ext-resource.location=file:///C:/ngd-app/user/images/
 
+Note that for new users an activation email will not be sent unless you provide the info for your mail server in application-ngd.properties. If you can't find a free mail server, then
+you can still mimic user activation by updating the active column to true in the ngd_user table ( update ngd_user set active=true where id=someId )
+
 4. Setting up your database
 
 The file dating-app-ddl.sql contains all the necessary sql to build your Postgresql database. You will still need to modify the datasource.ngd.jdbc-url entry to match your connetion details.
