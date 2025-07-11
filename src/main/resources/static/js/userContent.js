@@ -1,7 +1,7 @@
 /**
  * 
  */
-var userContent = (function(){
+const userContent = (function(){
 	
 	startRecord = 0;
 	numRecords  = 3;
@@ -27,17 +27,17 @@ var userContent = (function(){
 	$(document).on('click', '.btn-more', function(e){
 		e.stopImmediatePropagation();
 		//e.preventDefault();
-		var val = $(this).val();
-		var id =  $(this).attr('id');
-		var msgStart= parseInt($(this).attr('data-msgStart'));
+		let val = $(this).val();
+		let id =  $(this).attr('id');
+		let msgStart= parseInt($(this).attr('data-msgStart'));
 		//userMsgStartRec = userMsgStartRec + userMsgNumRec;
 		userMsgStartRec = msgStart + userMsgNumRec;
-		params = "target=" + val + '&offsetMsg=' + userMsgStartRec;
+		let params = "target=" + val + '&offsetMsg=' + userMsgStartRec;
 		$.get('/targetMessages', params, function(response){
 				
 			if(response.status === 'SUCCESS'){
-					var btnId = id.charAt(id.length-1);
-					var msgIds = [];
+					let btnId = id.charAt(id.length-1);
+					let msgIds = [];
 					populateConversationsForTargetUser(response.result, msgIds, btnId);
 					$('#btnMore'+btnId).attr('data-msgStart', userMsgStartRec);
 					updateMsgStatus(msgIds);
@@ -53,7 +53,7 @@ var userContent = (function(){
 	});
 	$(document).on('click', '.btn-flag', function(e){
 		e.stopImmediatePropagation();
-		val = $(this).val();
+		let val = $(this).val();
 		$.get('/flagMsg/'+val, null, function(response){
 				
 			if(response.status == 'SUCCESS'){				
@@ -80,8 +80,8 @@ var userContent = (function(){
 	$('#sendUserMsgBtn').unbind();
 	$('#sendUserMsgBtn').on('click', function(e){
 
-		params = 'msg=' + $('#msgContent').val() + '&_csrf='+token;
-		$.post('/sendMsg/'+msgTarget, params, function(response){
+		let params = 'msg=' + $('#msgContent').val() + '&_csrf='+token;
+		$.post('/sendMsg/'+ msgTarget, params, function(response){
 			$('#sendMsgModal').modal('hide');
 			if(response.status == 'SUCCESS'){
 				commonModule.showAlertInfo(response.result, '.inner-message', true);			
@@ -96,7 +96,7 @@ var userContent = (function(){
 	//$('a.usernameLink').on('click', function(e){
 			e.preventDefault();	
 			e.stopImmediatePropagation();
-			var href = $(this).attr('href');
+			let href = $(this).attr('href');
 			$.get('/getUserProfile'+href, null, function(response){
 				
 				if(response.status == 'SUCCESS'){
@@ -115,8 +115,8 @@ var userContent = (function(){
 					$('#hobbies').text(member.hobbies);
 					$('#imgContainer').empty();
 					if(member.photos != null && member.photos.length > 0){
-						var imgHtml = '';
-						var cls;
+						let imgHtml = '';
+						let cls;
 						for(i=0; i<member.photos.length; ++i){
 							 cls = (i==0) ? 'class="item imgSlider active"' : 'class="item imgSlider"';
 						 	imgHtml = imgHtml + '<div ' + cls + '><img class="slider"   src=' + member.photos[i] +'></img></div>';
@@ -143,7 +143,7 @@ var userContent = (function(){
 			//e.preventDefault();	
 			$('#nextMemberBtn').prop('disabled', false);
 			$('#nextMemberBtn').removeClass('disabled');
-			var src = $('#contentSrc').val();
+			let src = $('#contentSrc').val();
 			if(startRecord > 0)
 				startRecord = startRecord - numRecords >= 0 ? startRecord - numRecords : 0;
 			retrieveMembers(startRecord, src);
@@ -155,8 +155,8 @@ var userContent = (function(){
 		
 		$('#lastMemberBtn').on('click', function(){
 		
-		var src = $('#contentSrc').val();
-		var numUsers = $('#numMatchingUsers').val();
+		let src = $('#contentSrc').val();
+		let numUsers = $('#numMatchingUsers').val();
 		startRecord  = numUsers - numRecords >= 0 ? numUsers - numRecords : 0;
 		
 		retrieveMembers(startRecord,  src);
@@ -175,7 +175,7 @@ var userContent = (function(){
 		$('#firstMemberBtn').on('click', function(){
 		
 		startRecord  =  0;
-		var src = $('#contentSrc').val();
+		let src = $('#contentSrc').val();
 		retrieveMembers(startRecord, src);
 		
 		$('#prevMemberBtn').prop('disabled', true);
@@ -192,7 +192,7 @@ var userContent = (function(){
 		
 		});
 		$('#nextMemberBtn').on('click', function(){
-			var src = $('#contentSrc').val();
+			let src = $('#contentSrc').val();
 			if(contentSrc != src){
 				startRecord = 0;
 			}
@@ -381,7 +381,7 @@ var userContent = (function(){
 			return;
 		}
 		numRecords = parseInt($('#selNumSearch').val());
-		params = "offset=" + offset + "&numRec="+numRecords;
+		let params = "offset=" + offset + "&numRec="+numRecords;
 		$.get('/getUserProfiles', params, function(response){
 				
 				if(response.status == 'SUCCESS'){
@@ -396,8 +396,8 @@ var userContent = (function(){
 	}
 	function searchMembers(offset){
 		numRecords = parseInt($('#selNumSearch').val());
-		params = "offset=" + offset + "&numRec="+numRecords;
-		var formParams = $('#searchProfileForm').serializeArray();
+		let params = "offset=" + offset + "&numRec="+numRecords;
+		let formParams = $('#searchProfileForm').serializeArray();
 		$.get('/fetchUserProfiles', params, function(response){
 				
 				if(response.status == 'SUCCESS'){
@@ -412,13 +412,13 @@ var userContent = (function(){
 			});
 	}
 	function fetchMessages(offset, numRec, offsetMsg){
-			params = "offset=" + offset+'&numRec='+numRec+ '&offsetMsg=' + offsetMsg;
+			let params = "offset=" + offset+'&numRec='+numRec+ '&offsetMsg=' + offsetMsg;
 			$.get('/messages', params, function(response){
 				
 				if(response.status == 'SUCCESS'){
-					//var rStr = JSON.stringify(response.result);
-					msgList = response.result;
-					var msgIds = [];
+					//rStr = JSON.stringify(response.result);
+					let msgList = response.result;
+					let msgIds = [];
 					populateConversations(response.result, numRec, msgIds);
 					console.log(msgIds)
 					updateMsgStatus(msgIds);
@@ -431,8 +431,8 @@ var userContent = (function(){
 	}
 	function retrieveViews(offset, numRec, numViews){//numViews se ne koristi ovdje
 		
-		page = $('#viewPage').val();
-		loc = "PROFILE_VIEWS_DST" === page ? '/getUserProfiles/targetViews' : '/getUserProfiles/srcViews';
+		let page = $('#viewPage').val();
+		let loc = "PROFILE_VIEWS_DST" === page ? '/getUserProfiles/targetViews' : '/getUserProfiles/srcViews';
 		
 		params = "offset=" + offset +'&numRec='+numRec;
 			$.get(loc, params, function(response){
@@ -461,20 +461,20 @@ var userContent = (function(){
 			$('#nextMsgBtn').prop('disabled', true);
 			$('#nextMsgBtn').addClass('disabled');
 		}
-		var goDb = true;
+		let goDb = true;
 		currList = msgList.length - (offset + numRec);
 		remList = numMsgUsers - offset;
 		if(/*currList >= 0 || */ remList <= 0){
 			goDb = false;
 		}
 		if(goDb){
-			params = "offset=" + offset+'&numRec='+numRec+ '&offsetMsg=' + offsetMsg;
+			let params = "offset=" + offset+'&numRec='+numRec+ '&offsetMsg=' + offsetMsg;
 			$.get('/messages', params, function(response){
 				
 				if(response.status === 'SUCCESS'){
-					//var rStr = JSON.stringify(response.result);
-					msgList = response.result;
-					var msgIds= [];
+					// rStr = JSON.stringify(response.result);
+					let msgList = response.result;
+					let msgIds= [];
 					populateConversations(response.result, numRec, msgIds);
 					console.log(msgIds)
 					updateMsgStatus(msgIds);
@@ -494,7 +494,7 @@ var userContent = (function(){
 	function updateMsgStatus(msgIds){
 		
 		if(msgIds.length > 0){			
-			params = 'msgIds=' + msgIds + '&_csrf='+token;
+			let params = 'msgIds=' + msgIds + '&_csrf='+token;
 			$.post('/updateMsgStatus', params, function(response){
 			
 			if(response.status === 'SUCCESS'){
@@ -508,7 +508,7 @@ var userContent = (function(){
 	}
 	function populateViews(views, next){
 		
-		var viewHtml = "";
+		let viewHtml = "";
 		if(views != null && views.length>0){
 			$('#profile_views_wrapper').empty();
 			if(next && views.length < numRecords){
@@ -516,7 +516,7 @@ var userContent = (function(){
 				$('#nextViewBtn').addClass('disabled');
 				}
 			for(i=0; i<views.length;++i){
-			onlineHtml = views[i].online ? '&nbsp;<span class="gCol">Online!</span>' : '';	
+			let onlineHtml = views[i].online ? '&nbsp;<span class="gCol">Online!</span>' : '';	
 			viewHtml = viewHtml + '<br><div  class="row"> <div class="col-md-4"> \
 			<label for="member.username" >' + messageContent.getMessage(messageContent.Message.USERNAME) + '</label> \
 			<span>&nbsp;</span><a class="usernameLink" href=/' + views[i].username + '><span>'+ views[i].username + '</span></a>'+ onlineHtml +'</div> \
@@ -535,7 +535,7 @@ var userContent = (function(){
     		<div class="col-md-4"> \
     		<label for="memberLastSeen" >'+messageContent.getMessage(messageContent.Message.LAST_ACTIVITY)+'</label> \
     		<span>&nbsp;</span><span class="userProfileSel">' + views[i].lastActivity + '</span></div></div> <br><div class="row">';
-    		 var thick = (i == views.length-1) ? 'class="thick"' : ''; 		
+    		 let thick = (i == views.length-1) ? 'class="thick"' : ''; 		
 			 viewHtml =  viewHtml + '<div class="col-md-4"><label>'+messageContent.getMessage(messageContent.Message.PROFILE_VISITED_ON)+
 									'</label><span>&nbsp;</span><span class="userProfileSel">' + views[i].profileVisitedOn + '</span> \
 									</div><div class="col-md-4"></div> <div class="col-md-4"><button type="button" \
@@ -552,7 +552,7 @@ var userContent = (function(){
 	}
 	function populateMembers(members){
 		
-		var memberHtml = "";
+		let memberHtml = "";
 		if(members != null && members.length>0){
 			$('#members_wrapper').empty();
 			/*if(next && members.length < numRecords){
@@ -560,8 +560,8 @@ var userContent = (function(){
 				$('#nextMemberBtn').addClass('disabled');
 				}*/
 			for(i=0; i<members.length;++i){
-			onlineHtml = members[i].online ? '&nbsp;<span class="gCol">Online!</span>' : '';	
-			memberHtml = memberHtml + '<br><div  class="row"> <div class="col-md-4"> \
+			let onlineHtml = members[i].online ? '&nbsp;<span class="gCol">Online!</span>' : '';	
+			let memberHtml = memberHtml + '<br><div  class="row"> <div class="col-md-4"> \
 			<label for="member.username" >' + messageContent.getMessage(messageContent.Message.USERNAME) + '</label> \
 			<span>&nbsp;</span><a class="usernameLink" href=/' + members[i].username + '><span>'+ members[i].username + '</span></a>' + onlineHtml + '</div> \
 			<div class="col-md-4"><label for="profileComplete">'+messageContent.getMessage(messageContent.Message.PROFILE_COMPLETE)+'</label> \
@@ -579,7 +579,7 @@ var userContent = (function(){
     		<div class="col-md-4"> \
     		<label for="memberLastSeen" >'+messageContent.getMessage(messageContent.Message.LAST_ACTIVITY)+'</label> \
     		<span>&nbsp;</span><span class="userProfileSel">' + members[i].lastActivity + '</span></div></div> <br><div class="row">';
-    		 var thick = (i == members.length-1) ? 'class="thick"' : ''; 		
+    		 let thick = (i == members.length-1) ? 'class="thick"' : ''; 		
 			 memberHtml =  memberHtml + '<div class="col-md-8"></div> <div class="col-md-4"><button type="button" class="btn-msg" value="'+ members[i].username + '">'+ messageContent.getMessage(messageContent.Message.SEND)+'</button> </div></div><hr '+thick+'> ';    					    		 		    		 
 			}
 			
@@ -590,26 +590,26 @@ var userContent = (function(){
 	
 	function populateConversationsForTargetUser(msg,  msgIds, index){
 
-		cnvHtml = populateUserMessages( msg, msgIds);
+		let cnvHtml = populateUserMessages( msg, msgIds);
 		$('#msgCon'+ index).append(cnvHtml);
 	}
 	function populateUserMessages(msg, msgIds){
-		suffix = 0;
-		cnvHtml = '';
+		let suffix = 0;
+		let cnvHtml = '';
 		
 		for(j=0; j<msg.length;++j){
 					suffix += j;
-					var incoming = msg[j].incomingMsg;
-					var seen = msg[j].msgViewed;
-					var hint = incoming ? 'title="Incoming message"' : 'title="Outgoing message"';
+					let incoming = msg[j].incomingMsg;
+					let seen = msg[j].msgViewed;
+					let hint = incoming ? 'title="Incoming message"' : 'title="Outgoing message"';
 					if(incoming && !seen ){
 						msgIds.push( msg[j].msgId );
 					}
-					dirImgSrcHtml = ' src="data:image;base64,' + getMsgDirImg(incoming) + '" ';
-					viewImgSrcHtml = ' src="data:image;base64,' + getImgAsBase64(seen) + '" ';
+					let dirImgSrcHtml = ' src="data:image;base64,' + getMsgDirImg(incoming) + '" ';
+					let viewImgSrcHtml = ' src="data:image;base64,' + getImgAsBase64(seen) + '" ';
 					
-					flagMsgHtml = incoming ? '<div class="col-md-2"><button class="btn-flag" value="'+ msg[j].msgId + '">'+messageContent.getMessage(messageContent.Message.FLAG, msg[j].msgFlag)+'</button></div>' : ''; 
-					cnvHtml += '<br><div class="row"><div class="col-md-1"><img '+ dirImgSrcHtml + hint +'id="msgDirection' + suffix + '"> \
+					let flagMsgHtml = incoming ? '<div class="col-md-2"><button class="btn-flag" value="'+ msg[j].msgId + '">'+messageContent.getMessage(messageContent.Message.FLAG, msg[j].msgFlag)+'</button></div>' : ''; 
+				    cnvHtml += '<br><div class="row"><div class="col-md-1"><img '+ dirImgSrcHtml + hint +'id="msgDirection' + suffix + '"> \
 							</div><div class="col-md-4"><span>' + messageContent.getMessage(messageContent.Message.SENT_ON) + '</span><span>&nbsp;</span>';
 					cnvHtml += '<span class="userProfileSel">' + msg[j].date + '</span></div><div class="col-md-2"><span>' + messageContent.getMessage(messageContent.Message.VIEWED) +'</span><span>&nbsp;</span>';
 					cnvHtml += '<img id="msgSeen' + suffix  +'"' + viewImgSrcHtml + '></div></div>';
@@ -623,15 +623,15 @@ var userContent = (function(){
 	}
 	function populateConversations(conversations, numRec, msgIds){
 	
-		cnvHtml = '';
-	    suffix = 0;
+		let cnvHtml = '';
+	    let suffix = 0;
 		if(conversations != null && conversations.length>0){
 			$('#members_msg_wrapper').empty();
-			var len = numRec > conversations.length ? conversations.length : numRec;
+			let len = numRec > conversations.length ? conversations.length : numRec;
 			for(i=0; i<len;++i){//${conversations[i].msgTarget}
-				var msg = conversations[i].userMsgDisplay;//<a class="usernameLink" href="#"><span>'+ members[i].username + '</span></a>
+				let msg = conversations[i].userMsgDisplay;//<a class="usernameLink" href="#"><span>'+ members[i].username + '</span></a>
 				suffix += i;
-				var msgStart = $('#btnMore'+i).attr('data-msgStart') == null ? 0 : $('#btnMore'+i).attr('data-msgStart');
+				let msgStart = $('#btnMore'+i).attr('data-msgStart') == null ? 0 : $('#btnMore'+i).attr('data-msgStart');
 				onlineHtml = conversations[i].online ? '&nbsp;<span class="gCol">Online!</span>' : '';
 				cnvHtml += '<div class="row"><div class="col-md-2"><a class="usernameLink" href=/' + conversations[i].msgTarget + '><span>'+ conversations[i].msgTarget + '</span></a>'+ onlineHtml + '</div>';
 				cnvHtml += '<div class="col-md-7"></div>';
@@ -654,7 +654,7 @@ var userContent = (function(){
 	}	
 	function getMsgDirImg(incoming){
 		
-		var incImg ="iVBORw0KGgoAAAANSUhEUgAAAB4AAAAgCAYAAAAFQMh/AAAACXBIWXMAABJ0AAA \
+		let incImg ="iVBORw0KGgoAAAANSUhEUgAAAB4AAAAgCAYAAAAFQMh/AAAACXBIWXMAABJ0AAA \
 		SdAHeZh94AAAJBUlEQVR42pVXCVzO2Rr+27dByVqJmzIt9q3sXEmWke4QSkgaRGmZpvmJuYaZrq5 \
 		dIsqeGCndDNGKFipLaKOEkkr71/btz7z/8/V9iszMPb/f81/POc953vOe97yHw58UuVyugkwug1g \
 		mhkgqahNSubRV/b8q3F8R8h1KZBL8naKsy9rizwfBtUWqvPMdKUuDuAEppck4luUPrwdecEp0gmu \
@@ -697,13 +697,13 @@ var userContent = (function(){
 		vTIB1tA0Cs4PoGFPU6mDwpVPEF89Oyor8aNs+sMlRL6mjCCT67A9zJD6h+38PbW2dGJXm50NdSyVKy/ \
 		DfefAD/btH1T8AGrCsLmYdb9kAAAAASUVORK5CYII=";
 		
-		var outImg = "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";
+		let outImg = "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";
 	
 		return incoming  ? incImg : outImg;
 	}
 	function getImgAsBase64(checkImg){
 		
-	var cancel = "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEDElEQVR42t2VXUxbZRjHn/ecfqwt \
+	let cancel = "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAEDElEQVR42t2VXUxbZRjHn/ecfqwt \
 	Hx3tagcU27UdpcgQUGJQRooKmkyz6IUmhlKpi9F4s6mL0xGzuEQvjO7O7AMsXaZuUROzOLMa2BTN \
 	thhBZj8o4/DRobRIIdsoLbXw+pwDVMUz1ERv9ia96PM+z//3fPUtgf/5kFsT8DHLFmsaGnwJjvt2 \
 	NhJ5toXSJTG/DgBGq9Mdzq+puTd+/nzT48nkxN8CPgIwsAA99udaLLFL38N0X9CTAHA/DfAnyGEU \
@@ -724,7 +724,7 @@ var userContent = (function(){
 	6Y1ULvWlJmd643PJXd7FJdEdb2VZptZgOGo3m+8L+f0PPB+LXV3rc4v+J/+X5zduKY8ohxjKHgAA \
 	AABJRU5ErkJggg";
 	
-	var check = "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADJElEQVR42u2Ta0iTURjHn7Ob79w7 \
+	let check = "iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAADJElEQVR42u2Ta0iTURjHn7Ob79w7 \
 	3XRzW61ypYmlWbbEym4Lxe4X6SpFiF2QjCIiooyQqA9dsILEroSBVFYYlDqsRDOtMJMu0tScmptZ \
 	rS3X5ru9e097C6RypWD1yT+cT+fh/3vOef4Pgn8sNAT4LwDFTgWREp+yrcncdFW/TW/8qwAigxAI \
 	lIJrOatyFmeXZje3Nrbq8Cnc9lcAZAbJJ4YTBem69OWTR08Gs8UMWUVZTfAB5tiO2joGBQjYGMAT \

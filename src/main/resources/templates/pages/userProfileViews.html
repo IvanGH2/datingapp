@@ -45,15 +45,15 @@
 				<div th:replace="pages/sendMsgModal :: sendMsg(id='sendMsgModal')"></div>		
 				</div>
 				<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script> 
-			<!-- 	<script type="text/javascript" src="/js/userContent.js"></script>		 -->
+			 	<script type="text/javascript" src="/js/userContent.js"></script>
 				
 				<script th:inline="javascript">
 				$(document).ready(function(){
-					adminModule.init();
+					//adminModule.init();
 					userContent.init();
 	
-					var numViews = [[${user_ctx_views_count}]];
-					var numViewsPerPage = [[${user_views_count}]];
+					let numViews = [[${user_ctx_views_count}]];
+					let numViewsPerPage = [[${user_views_count}]];
 					console.log(numViews);
 					console.log(numViewsPerPage);
 					//var page 		= [[${page}]]	

@@ -1,8 +1,8 @@
 /**
  * 
- */var adminModule = (function(){
+ */const adminModule = (function(){
  
- 	flaggedUsersSelected = false;
+ 	let flaggedUsersSelected = false;
 	
 	function init(){
 	   
@@ -17,7 +17,7 @@
 			e.preventDefault();
 			if(checkPsw()){
 				
-			var params = 'newPsw=' + $('#passwordId').val() + '&_csrf=' + token;
+			let params = 'newPsw=' + $('#passwordId').val() + '&_csrf=' + token;
 			$.post(contextRoot + 'changePassword', params, function(response){
 				if(response.status === 'SUCCESS') {
 					commonModule.showAlertInfo(response.result, '.inner-message', true);
@@ -30,7 +30,7 @@
 		$('.thumbnail').on('click', function(e){
 			e.preventDefault();	
 			e.stopImmediatePropagation();
-			imgSrc = "imageUrl=" + $(this).attr('src') ;
+			let imgSrc = "imageUrl=" + $(this).attr('src') ;
 			
 			$.get("/deleteUserImage", imgSrc, function(response){
 				if(response.status == 'SUCCESS') {
@@ -51,7 +51,7 @@
 		
 		$('#btnBlockUser').on('click', function(e){
 			e.stopImmediatePropagation();
-			$targetUser = $('#targetUser').text();
+			let $targetUser = $('#targetUser').text();
 			if(targetUser == null || targetUser.length == 0) 
 				return;
 			var params = '_csrf=' + token;
@@ -66,8 +66,9 @@
 			
 		});
 		$('#btnBlockUsers').on('click', function(e){
-			
-			var ids = [];
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			let ids = [];
 			$('.chBx').each(function(){
 				if(this.checked){
 					ids.push(this.value);
@@ -93,8 +94,8 @@
 		
 		$('#registerUserForm').on('submit', function(e){
 			e.preventDefault();
-			var $form = $(this);
-			formData = $form.serializeArray();
+			let $form = $(this);
+			let formData = $form.serializeArray();
 			$.post(contextRoot + 'processRegisterInfo', formData, function(response){
 				if(response.status === 'SUCCESS') {
 					commonModule.showAlertInfo(response.result, '.inner-message', true);
@@ -108,7 +109,7 @@
 
 		$('#locales').on( 'change', function(){
 	
-			loc = "lang=" + $('#locales').val();
+			let loc = "lang=" + $('#locales').val();
 			
 			if(loc.length>0){
 				
@@ -139,9 +140,9 @@
 		});
 		$('#retrieveCredentialsBtn').on('click', function(e){
 			e.preventDefault();
-			var optionSelected = -1;
-			var options = document.getElementsByName("credentials");
-			var len = options.length;
+			let optionSelected = -1;
+			let options = document.getElementsByName("credentials");
+			let len = options.length;
 			for(i=0; i<len;++i){
 				if(options[i].checked == true )
 					optionSelected = i;	
@@ -149,7 +150,7 @@
 			
 			if(optionSelected != -1 && validateEmail($('#emailId').val())){
 							
-				var params = $(retrieveCredentialsForm).serializeArray();
+				let params = $(retrieveCredentialsForm).serializeArray();
 				$.post('/register/retrieveCredentials', params, function(result){
 				
 				if(result.status == 'SUCCESS'){
@@ -160,7 +161,7 @@
 				}		
 			});
 			}else{	
-				var errMsg = 	optionSelected != -1 ? messageContent.getMessage(messageContent.Message.EMAIL_WRONG_FORMAT) 
+				let errMsg = 	optionSelected != -1 ? messageContent.getMessage(messageContent.Message.EMAIL_WRONG_FORMAT) 
 				: messageContent.getMessage(messageContent.Message.RETRIEVE_OPT_NS);
 				$('#retrieveCredentialsResponseTarget').text(errMsg);
 				$('#retrieveCredentialsResponseTarget').addClass('textMsgFailure');
@@ -200,7 +201,7 @@
 		}
 		$('#activationEmailBtnMain').on('click', function(e){
 			
-			aLink = $('#seModal').val();
+			let aLink = $('#seModal').val();
 			if(aLink == -1)
 			 	$('#emailModal').modal('show');
 			 else {
@@ -229,7 +230,7 @@
 		});
 		$('#activationEmailForm').on('submit', function(e){
 			e.preventDefault();
-			var params = $(this).serializeArray();
+			let params = $(this).serializeArray();
 			if(!validateEmail($('#email').val())){
 				$('#emailResTarget').text('The email address format is incorrect!');
 				$('#emailResTarget').addClass('textMsgFailure');
@@ -261,7 +262,7 @@
 		}
 		function blockUsers(ids){
 			
-			params = 'userIds=' + ids + '&_csrf='+token;
+			let params = 'userIds=' + ids + '&_csrf='+token;
 			$.post('/blockUsers', params, function(response){
 			
 			if(response.status === 'SUCCESS'){
@@ -273,11 +274,11 @@
 		});	
 		}
 		function registerValidation(){
-			var ok = true;
-			var valid;
+			let ok = true;
+			let valid;
 			//process <input> tags
-			var $selector = $('#registerUserForm');
-			var form_input =$selector.find('input');
+			let $selector = $('#registerUserForm');
+			let form_input =$selector.find('input');
 			$.each(form_input, function(k, v){
 				valid = v.checkValidity();
 				ok = ok && valid;
@@ -288,7 +289,7 @@
 				}
 			});
 			//process <select> tags
-			form_select= $selector.find('select');
+			let form_select= $selector.find('select');
 			$.each(form_select, function(k, v){
 				valid = v.checkValidity() && $(v).val() != '-1';
 				ok = ok && valid;
@@ -301,8 +302,8 @@
 			return ok;
 		}
 		function checkPsw(){
-			var psw = $('#passwordId').val();
-			var pswConfirmed = $('#passwordConfirmedId').val();
+			let psw = $('#passwordId').val();
+			let pswConfirmed = $('#passwordConfirmedId').val();
 			
 			const regex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^A-Za-z0-9]).{8,15}$/;
 			
@@ -335,10 +336,10 @@
 		}
 		function modifyRole(role){
 			
-			$targetUser = $('#targetUser').text();
+			let $targetUser = $('#targetUser').text();
 			if(targetUser == null || targetUser.length == 0) 
 				return;
-			var params = '_csrf=' + token;
+			let params = '_csrf=' + token;
 			$.post(contextRoot + 'modifyRole/' + $targetUser + "/" + role, params, function(response){
 				if(response.status == 'SUCCESS') {
 					commonModule.showAlertInfo(response.result, '.inner-message', true);

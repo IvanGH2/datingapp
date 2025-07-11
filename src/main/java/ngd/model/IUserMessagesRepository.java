@@ -2,7 +2,7 @@ package ngd.model;
 
 
 
-import java.sql.Date;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -22,7 +22,7 @@ public interface IUserMessagesRepository extends JpaRepository<UserMessage, Inte
 	UserMessage findOneByDstUserId(Integer id);
 	
 	@Modifying
-	//@Transactional
+	@Transactional
 	@Query(value = "update ngd_user_messages  set msg_viewed = true where id in ( :ids )", nativeQuery=true)
 	int updateMsgViewedStatus(@Param("ids") List<Integer> ids);
 	

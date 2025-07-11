@@ -74,14 +74,14 @@ div.intro{
 				
 				commonModule.init();
 				adminModule.init();
-				userContent.init();
+				//userContent.init();
 				errVal =  [[${errorMsg}]];
 				if( errVal != null ){
 					$('#signInLink').trigger('click');
 				}else{
 				 //explicitly setting the language makes Spring aware of it, and internationalization then works as expected
-				//without this, the Thymealeaf #locale variable is not set initially, and certain js files are included based on #locale
-				 	url = location.href;
+				//without this, the Thymealeaf #locale variable is not set initially, and certain js files should be included based on #locale
+				 	let url = location.href;
 					if(!url.includes('?lang')) 
 						location.href = url + '?lang=en';	
 				}

@@ -1,6 +1,6 @@
-var targetProfileModule = (function(){
+const targetProfileModule = (function(){
 	
-	var numSearchRecords  = 3;
+	let numSearchRecords  = 3;
 	
 	function init(){
 		
@@ -30,7 +30,7 @@ var targetProfileModule = (function(){
 		
 		$('#saveUserProfileBtn').on('click', function(e){
 			e.preventDefault();
-			var formParams = $('#searchProfileForm').serializeArray();
+			let formParams = $('#searchProfileForm').serializeArray();
 			
 			$.post(contextRoot + 'saveUserProfile/target', formParams, function(response){
 				
@@ -51,7 +51,7 @@ var targetProfileModule = (function(){
 			
 			e.preventDefault();
 			
-			var formParams = $(this).serializeArray();
+			let formParams = $(this).serializeArray();
 			
 			$.post(contextRoot + 'saveUserProfile/target', formParams, function(response){
 				
@@ -71,7 +71,7 @@ var targetProfileModule = (function(){
 		//session.userSignedIn
 		$('#userProfileLink').on('click', function(e){
 			e.preventDefault();	
-			params = 'ctx=100&_csrf='+token;
+			let params = 'ctx=100&_csrf='+token;
 			$.post('/letsclick_', params, function(response){
 				
 				if(response.status === 'SUCCESS'){
@@ -166,7 +166,7 @@ var targetProfileModule = (function(){
 					setItem($target, personTypes[i]);	
 			}	
 			if(searchProfile.countries){
-			var countries = searchProfile.countries.substring(1, searchProfile.countries.length-1).split(", ");
+			let countries = searchProfile.countries.substring(1, searchProfile.countries.length-1).split(", ");
 			$target = $('#userCountryId');
 			for(i=0;i<countries.length;++i)
 				setItem($target, countries[i]);	

@@ -1,10 +1,5 @@
-/**
- * 
- */
-/**
- * 
- */
-var messageContent = (function(){
+
+const messageContent = (function(){
 	
 	//export let Message;
 

@@ -576,9 +576,9 @@
 				<script type="text/javascript" src="/js/targetProfile.js"></script>		
 				<script th:inline="javascript">
 				$(document).ready(function(){
-					adminModule.init();
+					
 					targetProfileModule.init();
-					var searchProfile = [[${targetProfile}]];
+					let searchProfile = [[${targetProfile}]];
 					if(searchProfile)
 						targetProfileModule.populateSearchProfile(searchProfile);
 				

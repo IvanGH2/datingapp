@@ -12,7 +12,7 @@
 <script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript" src="/js/common.js"></script>
 <script type="text/javascript" src="/js/administration.js"></script>
-<script type="text/javascript" src="/js/userContent.js"></script>
+
 <script th:if="${#strings.equals(#locale, 'en')}" type="text/javascript" src="/js/lang/message_en.js"></script>
 <script th:if="${#strings.equals(#locale, 'hr')}" type="text/javascript" src="/js/lang/message_hr.js"></script>  
 <!-- <link rel="icon"  th:href="@{/images/tis-logo.png}" /> -->
@@ -88,10 +88,9 @@
 			$(document).ready(function(){
 				ctxPage = [[${page}]];
 				commonModule.init();
+				commonModule.initSse();
 				adminModule.init();
-			//	messageContent.init();
-				userContent.init();
-				
+						
 				
 			})
 		</script>

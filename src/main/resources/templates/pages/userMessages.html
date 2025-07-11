@@ -6,7 +6,7 @@
 <body>				
     			<div  th:fragment="contentFragment">    			<!-- th:if="${member.profileCompleted == true}" th:text="${userProfile.relStatus}" th:text="${userProfile.country}" th:text="${userProfile.residence}"-->
     			<h4 th:text="#{member.conversations}">User conversations</h4><hr class="thick">
-    			
+    				
     			
     			<div id="members_msg_wrapper" >
     			
@@ -45,21 +45,18 @@
 				<div th:replace="pages/userProfileModal :: userProfile(id='userProfileModal')"></div>		
 				<div th:replace="pages/sendMsgModal :: sendMsg(id='sendMsgModal')"></div>		
 				</div>
+				 	
 				<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script> 
-				
-			<!-- 	<script th:if="${session.lang == 'en'}" type="text/javascript" src="/js/lang/message_en.js"></script>
-				<script th:if="${session.lang == 'hr'}" type="text/javascript" src="/js/lang/message_hr.js"></script>
-			 	<script type="text/javascript" src="/js/userContent.js"></script>	 	 --> 
-				
+			 	<script type="text/javascript" src="/js/userContent.js"></script>
 				<script th:inline="javascript">
 				$(document).ready(function(){
 					//showMsg = [[${showMsg}]];
-					commonModule.init();
-					commonModule.initSse();
-					adminModule.init();
+					//commonModule.init();
+				//	commonModule.initSse();
+					//adminModule.init();
 					userContent.init();
 
-				 var msgNumRecords = parseInt($('#selNumMessages').val());
+				 msgNumRecords = parseInt($('#selNumMessages').val());
 				 userContent.retrieveMessages(0, msgNumRecords, 0);												
 				})
 				</script>

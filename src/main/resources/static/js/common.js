@@ -1,4 +1,4 @@
-var commonModule = (function(){
+const commonModule = (function(){
 	userSignedIn = false;
 	sseSet = false;
 	function init(){
@@ -25,10 +25,10 @@ var commonModule = (function(){
 		}
 		
 		function initSse(){					
-					var source = new EventSource("/getSse");
+					const source = new EventSource("/getSse");
 					source.onmessage = function(event) {
 					
-			        var evData = JSON.parse(event.data);
+			        const evData = JSON.parse(event.data);
 					console.log(evData.evNum);
 				
 					if(evData.evNum > 0){
@@ -50,20 +50,20 @@ var commonModule = (function(){
 			
 		}
 	function showAlertInfo(poruka, selector, append, fade){
-		var $html = $('<div class="alert alert-info2">' + '<button type="button" class="close" data-dismiss="alert">&times;</button>' + poruka + '</div>');
+		let $html = $('<div class="alert alert-info2">' + '<button type="button" class="close" data-dismiss="alert">&times;</button>' + poruka + '</div>');
 		
 		showAlertMsg($html, selector, append, fade);
 							
 	}
 	function showAlertInfoFail(poruka, selector, append, fade){
-		var $html =  $('<div class="alert alert-info2-fail">' + '<button type="button" class="close" data-dismiss="alert">&times;</button>' + poruka + '</div>');
+		let $html =  $('<div class="alert alert-info2-fail">' + '<button type="button" class="close" data-dismiss="alert">&times;</button>' + poruka + '</div>');
 		
 		showAlertMsg($html, selector, append, fade);
 		
 	}
 	function showAlertMsg($html, selector, append, fade){
 	
-		var _selector = ".inner-message";
+		let _selector = ".inner-message";
 
 		if(selector) {
 			_selector = selector;

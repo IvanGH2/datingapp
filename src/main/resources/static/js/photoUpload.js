@@ -1,7 +1,7 @@
-var fileUploadModule = (function () {
+const fileUploadModule = (function () {
 	var jqXHRArray = new Array();
 	
-	/*var _counter = 0;
+	/*let _counter = 0;
 
 	function getFileId() {
 		return 'ufi' + _counter++;
@@ -20,11 +20,11 @@ var fileUploadModule = (function () {
 	}
 	function uploadPhotos(filePond){
 
-	 params = [ { name: '_csrf', 
+	let params = [ { name: '_csrf', 
       			  value: 'b411beab-83a0-499a-9121-dcd6afdafb69' }, { name: 'echo', 
       			  value: 10 } ];
 	
-    var formData = new FormData();
+    let formData = new FormData();
     formData.append( '_csrf', 
       			  $('#csrf').val());
     formData.append( 'echo', 
@@ -43,7 +43,7 @@ var fileUploadModule = (function () {
   				FilePondPluginImageExifOrientation,
   				FilePondPluginImagePreview
 			);
-		var filePond = FilePond.create( $('#photoUploaderIn') );
+		let filePond = FilePond.create( $('#photoUploaderIn') );
         filePond.setOptions({
     		maxFiles: 3,
     		required: true,
@@ -85,7 +85,7 @@ var fileUploadModule = (function () {
 					formData.append( 'photoLinks', link  );
 				} 
 			});
-			//$("#ajax_loader").show();
+		
 			$.ajax({
                 url: contextRoot + 'saveUserProfile',
                 type: 'POST',
@@ -115,7 +115,7 @@ var fileUploadModule = (function () {
         	
         	if( $('#imgLinks_wrapper input').length >= 5 ) return;	//max 5 links
         	
-        	var photoLink = '<p class="dummy"><input class="imgLinks" type="text"> <button title="Remove" class="imgLinksRemoveBtn" type="button"><i class="glyphicon glyphicon-remove"></i></button></p>';
+        	let photoLink = '<p class="dummy"><input class="imgLinks" type="text"> <button title="Remove" class="imgLinksRemoveBtn" type="button"><i class="glyphicon glyphicon-remove"></i></button></p>';
         	
         	$('#imgLinks_wrapper').append(photoLink);
         	$('.imgLinksRemoveBtn').on('click', function(e){

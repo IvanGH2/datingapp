@@ -61,7 +61,8 @@
     					<input class="btn-manage" type="button" id="btnRemoveRole"  th:value="#{user.mod.remove}"  />
     				</div>
     				<div class="col-md-3">
-    					<input class="btn-manage" type="button" id="btnBlockUser"  th:value="#{user.block}"  />
+    					<input th:if="${user.blocked == false}" class="btn-manage" type="button" id="btnBlockUser"  th:value="#{user.block}"  />
+    					<input th:unless="${user.blocked == false}" class="btn-manage" type="button" id="btnBlockUser"  th:value="#{user.unblock}"  />
     				</div>
     			</div>
     			</th:block>
@@ -70,12 +71,12 @@
     			</div>
     	
 				<script type="text/javascript" src="/webjars/jquery/2.2.4/jquery.min.js"></script> 
-				<!--<script type="text/javascript" src="/js/userContent.js"></script>	-->	
+				<!--<script type="text/javascript" src="/js/userContent.js"></script>	-->
 				<!--<script type="text/javascript" src="/js/photoUpload.js"></script>-->
 				  <script th:inline="javascript">
 				$(document).ready(function(){
 					adminModule.init();
-					userContent.init();
+					//userContent.init();
 					
 				
 				})
