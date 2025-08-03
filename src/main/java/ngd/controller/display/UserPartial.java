@@ -12,5 +12,7 @@ public class UserPartial {
 	
 	public String lastActivity;
 	
+	public Boolean blocked;
+	
 
 }

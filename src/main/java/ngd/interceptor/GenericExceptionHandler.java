@@ -22,7 +22,7 @@ public class GenericExceptionHandler {
 	@ExceptionHandler(Throwable.class)
 	public ModelAndView defaultErrorHandler(HttpServletRequest request, HttpServletResponse response, Exception e)
 			throws Exception {
-		LOGGER.error("Wrong url: " + request.getRequestURL() + " Exception: ", e);
+		LOGGER.error("Failed url(gen): " + request.getRequestURL() + " Exception: ", e.getMessage());
 		if (AnnotationUtils.findAnnotation(e.getClass(), ResponseStatus.class) != null) {
 			throw e;
 		}
@@ -34,7 +34,7 @@ public class GenericExceptionHandler {
 	 @ExceptionHandler(AccessDeniedException.class)
 	public ModelAndView accessDeniedException(HttpServletRequest req, HttpServletResponse resp, AccessDeniedException e)
 			throws Exception {
-		LOGGER.error("Failed URL: " + req.getRequestURL() + " Exception: ", e);
+		LOGGER.error("Failed URL(ade): " + req.getRequestURL() + " Exception: ", e.getMessage());
 
 		resp.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		return fillExcModelAndView(MessageUtil.message("url.forbidden"));

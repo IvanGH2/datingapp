@@ -10,7 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.SpringVersion;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +24,7 @@ import ngd.controller.display.UserPartial;
 import ngd.controller.display.UserProfileDisplay;
 import ngd.controller.photos.PhotoRetriever;
 import ngd.controller.rest.model.TargetProfileForm;
+import ngd.model.IBlockedUserRepository;
 import ngd.model.IUserMessagesLastRepository;
 import ngd.model.IUserMessagesRepository;
 import ngd.model.IUserProfileRepository;
@@ -70,6 +70,9 @@ public class MainController {
 	private IUserRepository iUserRepository;
 	
 	@Autowired
+	private IBlockedUserRepository iBlockedUserRepository;
+	
+	@Autowired
 	private IUserMessagesRepository userMessageRepository;
 	
 	@Autowired
@@ -107,6 +110,7 @@ public class MainController {
 		mv.setViewName("register");
 		return mv;
 	}
+	
 	@GetMapping("/letsclick")
 	public ModelAndView letsclick(ModelAndView mv, 
 			HttpServletRequest request, HttpSession session) {
@@ -171,11 +175,7 @@ public class MainController {
 			memberProfile.setProfileCompleteStatus();
 		}
 		Integer numSearchResults = globPropObj.getNumUserSearchCount();
-		/*if(( numSearchResults = (Integer)session.getAttribute(SessionAttr.PAGE_USER_SEARCH_COUNT) ) == null) {
-			numSearchResults = globPropObj.getNumUserSearchCount();
-			
-		}*/
-		//System.out.println("search: " + numSearchResults);
+		
 		session.setAttribute(SessionAttr.PAGE_USER_SEARCH_COUNT, numSearchResults );
 		session.setAttribute("numMatchingUsers", userCount );
 		session.setAttribute("searchParams", searchProfileForm);
@@ -233,10 +233,7 @@ public class MainController {
 	public ModelAndView getUserSearch(ModelAndView mv, HttpSession session) {
 		
 		Integer numSearchResults = globPropObj.getNumUserSearchCount();
-		/*if(( numSearchResults = (Integer)session.getAttribute(SessionAttr.PAGE_USER_SEARCH_COUNT) ) == null) {
-			numSearchResults = globPropObj.getNumUserSearchCount();		
-			session.setAttribute(SessionAttr.PAGE_USER_SEARCH_COUNT, numSearchResults );
-		}*/
+		
 		mv.addObject("numUserSearchPage", numSearchResults );
 	try {
 		TargetProfile targetProfile = iUserTargetProfileRepository.findOneByUserId(CurrentUserUtility.getCurrentUser().getUserId());
@@ -259,18 +256,7 @@ public class MainController {
 		}else {
 			viewsPerPage = (Integer) session.getAttribute(SessionAttr.PAGE_USER_VIEWS_COUNT);
 		}
-		/*if(session.getAttribute(SessionAttr.USER_SRC_VIEWS_COUNT) != null) {
-			viewsNumSrc = (Integer)session.getAttribute(SessionAttr.USER_DST_VIEWS_COUNT);
-		}else{
-			try {
-				viewsNumSrc = userProfileViewsRepository.getProfileViewsForSourceUser(CurrentUserUtility.getCurrentUser().getUserId());
-				session.setAttribute(SessionAttr.USER_SRC_VIEWS_COUNT, viewsNumSrc);
-			}catch(Exception e) {
-				logger.error(e.getMessage());
-				mv.setViewName("error");
-				return mv;
-			}
-		}*/
+		
 		try {
 			viewsNumSrc = userProfileViewsRepository.getProfileViewsForSourceUser(CurrentUserUtility.getCurrentUser().getUserId());
 			session.setAttribute(SessionAttr.USER_SRC_VIEWS_COUNT, viewsNumSrc);
@@ -304,18 +290,7 @@ public class MainController {
 			mv.setViewName("error");
 			return mv;
 		}
-		/*if(session.getAttribute(SessionAttr.ALL_USER_MSG_COUNT) != null) {
-			numUsers = (Integer)session.getAttribute(SessionAttr.ALL_USER_MSG_COUNT);
-		}else{
-			try {
-				numUsers = userMessagesLastRepository.getMessageUsersForUserByUserId(CurrentUserUtility.getCurrentUser().getUserId());
-				session.setAttribute(SessionAttr.ALL_USER_MSG_COUNT, numUsers);
-			}catch(Exception e) {
-				logger.error(e.getMessage());		
-				mv.setViewName("error");
-				return mv;
-			}
-		}*/
+		
 		mv.addObject("page", "USER_MESSAGES");
 		mv.addObject(SessionAttr.ALL_USER_MSG_COUNT, numUsers);
 		mv.addObject(SessionAttr.PAGE_MSG_USERS_COUNT, numUsersPerPage);
@@ -331,19 +306,7 @@ public class MainController {
 		}else {
 			viewsPerPage = (Integer) session.getAttribute(SessionAttr.PAGE_USER_VIEWS_COUNT);
 		}
-		/*if(session.getAttribute(SessionAttr.USER_DST_VIEWS_COUNT) != null) {
-			viewsNumDst = (Integer)session.getAttribute(SessionAttr.USER_DST_VIEWS_COUNT);
-		}else{
-			try {
-			viewsNumDst = userProfileViewsRepository.getProfileViewsForTargetUser(CurrentUserUtility.getCurrentUser().getUserId());
 		
-			session.setAttribute(SessionAttr.USER_DST_VIEWS_COUNT, viewsNumDst);
-			}catch(Exception e) {
-				logger.error(e.getMessage());
-				mv.setViewName("error");
-				return mv;
-			}
-		}*/
 		try {
 			viewsNumDst = userProfileViewsRepository.getProfileViewsForTargetUser(CurrentUserUtility.getCurrentUser().getUserId());
 			session.setAttribute(SessionAttr.USER_DST_VIEWS_COUNT, viewsNumDst);
@@ -400,7 +363,8 @@ public class MainController {
 				userPartial.since = DateTimeUtil.formatDate(user.getDateCreated(), "dd-MM-yyyy");
 				userPartial.lastActivity = DateTimeUtil.formatDate(user.getLastActivity(), "dd-MM-yyyy");
 				userPartial.role = getRoleDesc(EUserRole.getObject(user.getUserRole()));
-				userPartial.active = user.getActive() ? "active" : "not active";		
+				userPartial.active = user.getActive() ? "active" : "not active";	
+				userPartial.blocked = iBlockedUserRepository.findOneByUserId(user.getId()) != null ? true : false;
 				mv.addObject("user", userPartial);
 				mv.addObject("userRetrieved", true);
 				
@@ -424,7 +388,7 @@ public class MainController {
 			case ADMIN:
 				return "Admin";
 			default:
-				return "Uknown";
+				return "Unknown";
 
 		}
 	}
@@ -450,7 +414,7 @@ public class MainController {
 				mv.setViewName("error");
 				return mv;
 			}
-			}
+		}
 		
 		mv.addObject("page", "USER_MESSAGES");
 		mv.addObject(SessionAttr.ALL_USER_MSG_COUNT, numUsers);
@@ -462,7 +426,6 @@ public class MainController {
 	@GetMapping("/messagesSse")
 	public String getMessages(ModelAndView mv) {
 		
-		//System.out.println("inside /retrieveMessages/sse");
 		CommonObject.msgSent.get(CurrentUserUtility.getCurrentUser().getUsername()).clear();
 		
 		return "redirect:retrieveMessages";

@@ -1,7 +1,6 @@
 
 const messageContent = (function(){
 	
-	//export let Message;
 
 	const Message = {
 		
@@ -26,7 +25,7 @@ const messageContent = (function(){
 				
 		
 	}
-	//function init(){}
+
 	function getMessage(m, attr){
 		
 		switch(m){
@@ -62,7 +61,7 @@ const messageContent = (function(){
 			case Message.EMAIL_WRONG_FORMAT:
 				return 'Email format nije ispravan ili nije napunjen';
 			case Message.PSW_REQ_NOT_MET:
-				return 'Zahtjevi kompleksnosti lozinke nisu ispunjeni(min 1 veliko slovo, 1 broj i specijalni znak)';
+				return 'Zahtjevi kompleksnosti lozinke nisu ispunjeni(min 1 veliko slovo, 1 broj i specijalni znak te min 8 znakova)';
 			case Message.PSW_CFRM_SAME:
 				return 'Zaporka te potvrđena zaporka nisu iste!';
 			case Message.RETRIEVE_OPT_NS:
@@ -75,7 +74,6 @@ const messageContent = (function(){
 
 		getMessage : getMessage,
 		Message : Message
-	//	init: init
 	
 	}
 	})();

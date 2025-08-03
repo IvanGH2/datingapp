@@ -10,11 +10,11 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 public class CommonObject {
 	
-	public static ConcurrentMap<String, SseEmitter> sseUsers = new ConcurrentHashMap<>();
+	public static ConcurrentMap<String, SseEmitter> sseUsers 		= new ConcurrentHashMap<>();
 	
-	public static ConcurrentMap<String, List<Integer>> seenViews = new ConcurrentHashMap<>();
+	public static ConcurrentMap<String, List<Integer>> seenViews 	= new ConcurrentHashMap<>();
 	
-	public static ConcurrentMap<String, List<Integer>> msgSent = new ConcurrentHashMap<>();
+	public static ConcurrentMap<String, List<Integer>> msgSent 		= new ConcurrentHashMap<>();
 	
 
 }

@@ -40,7 +40,7 @@ public class WebConfig implements WebMvcConfigurer {
 		final String[] RESOURCE_LOCATIONS = { "classpath:/META-INF/resources/", "classpath:/resources/",
 				"classpath:/static/", "classpath:/static/user/images/" };
 		registry.addResourceHandler("/**")
-		.addResourceLocations(RESOURCE_LOCATIONS)
+		.addResourceLocations(RESOURCE_LOCATIONS)	
 		.addResourceLocations(extResource)
 		.setCachePeriod(60 * 60)
 		.resourceChain(true);

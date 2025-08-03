@@ -26,7 +26,7 @@ const messageContent = (function(){
 		RETRIEVE_OPT_NS: 17
 		
 	}
-	function init(){}
+	
 	function getMessage(m, attr){
 		
 		switch(m){
@@ -62,7 +62,7 @@ const messageContent = (function(){
 			case Message.EMAIL_WRONG_FORMAT:
 				return 'The email format is not correct or is empty';
 			case Message.PSW_REQ_NOT_MET:
-				return 'Password complexity requirements are not met (minimum 1 uppercase letter, 1 number and 1 special character)!';
+				return 'Password complexity requirements are not met (minimum 1 uppercase letter, 1 number and 1 special character, min 8 chars long)!';
 			case Message.PSW_CFRM_SAME:
 				return 'Password and confirmed password don\'t match!';
 			case Message.RETRIEVE_OPT_NS:

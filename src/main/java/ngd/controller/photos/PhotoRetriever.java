@@ -73,7 +73,7 @@ public class PhotoRetriever {
 		
 			if(photos != null) {
 			for(final File photo : photos)
-				userPhotoLinks.add(userProfile.getUserId() + "/"  + photo.getName());
+				userPhotoLinks.add( userProfile.getUserId() + "/"  + photo.getName());
 			}
 		}catch(Exception e) {
 			logger.error(e.toString());
@@ -129,12 +129,14 @@ public class PhotoRetriever {
 	       return false;
 	}  
 
-	private Path getUserPhotoLocationPath(Integer userId) {
+	/*private Path getUserPhotoLocationPath(Integer userId) {
 		
 		final String pathFile = "file:/";
 		final String pathJar  = "jar:file:/";
-		logger.info("ext resource: "+ extResource);
-		final String saveLocation = getClass().getClassLoader().getResource(extResource).toString();
+		String extResourcee = extResource.replaceAll("\\\\", "/");
+		logger.info("extResourcee: "+ extResourcee);
+		String saveLocation = getClass().getClassLoader().getResource(extResourcee).toString();
+		
 		logger.info("save upload loc: "+ saveLocation);
 		
 		if(saveLocation.startsWith(pathFile))
@@ -144,5 +146,13 @@ public class PhotoRetriever {
 		else
 			return Paths.get(saveLocation + File.separator + userId);
 			
+	}*/
+	
+private Path getUserPhotoLocationPath(Integer userId) {
+		
+		final String pathFile = "file:/";
+		String extResourceRep = extResource.replaceAll("/", "\\\\");
+		return Paths.get(extResourceRep.substring(pathFile.length(), extResourceRep.length()) +  File.separator + userId );
+		
 	}
 }

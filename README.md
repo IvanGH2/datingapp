@@ -4,9 +4,9 @@ A complete Spring boot dating application
 
 	- form security / csrf protection / server password encryption
 	
-	- new user actovation via email
+	- new user activation via email
 	
-	- role based authorization
+	- endpoints secured by role based authorization
 	
 	- data model backed by a Postgresql database
 	
@@ -24,9 +24,6 @@ but I guess it's similar in every IDE )
 To run the application outside of the IDE, you will first have to build it. This is equivalent to running an mvn -DskipTests install command (in Eclipse you would right-click 
 on the project and choose Build ..., which opens a dialogue where you should specify package as the goal and check the skip tests check box. Then, you can run the exe jar as any Java
 runnable application.
-
-There's one key difference in the configuration between running the app in the IDE and outside of the IDE. For IDE, you should uncomment ngd.ext-resource.location=static/user/images/ entry 
-in /resources/config/application-ngd.properties, whereas outside of the IDE you should uncomment ngd.ext-resource.location=file:///C:/ngd-app/user/images/
 
 Note that for new users an activation email will not be sent unless you provide the info for your mail server in application-ngd.properties. If you can't find a free mail server, then
 you can still mimic user activation by updating the active column to true in the ngd_user table ( update ngd_user set active=true where id=someId )

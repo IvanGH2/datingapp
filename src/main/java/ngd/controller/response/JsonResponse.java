@@ -1,9 +1,16 @@
 package ngd.controller.response;
 
+import java.io.Serializable;
 
+public class JsonResponse implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6094306912603705651L;
 
-public class JsonResponse {
 	private ResponseStatus status;
+	
 	private Object result;
 
 	public enum ResponseStatus {

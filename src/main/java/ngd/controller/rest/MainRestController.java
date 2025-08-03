@@ -73,7 +73,7 @@ import ngd.utility.MessageUtil;
 import ngd.utility.RandomString;
 import ngd.utility.StringProcessor;
 
-@RestController
+@RestController()
 public class MainRestController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(MainRestController.class);
@@ -196,6 +196,12 @@ public class MainRestController {
 		System.out.println("getsse endpoint return");
 		return emitter;
 	}
+	
+	@GetMapping("/ping")
+	public String ping() {
+	
+		return "pong";
+	}
 	@GetMapping("/deleteUserImage")
 	public JsonResponse deleteUserImage(@RequestParam String imageUrl) {
 		JsonResponse response = new JsonResponse();
@@ -222,8 +228,9 @@ public class MainRestController {
 				if(found) {
 					response.setStatus(JsonResponse.ResponseStatus.SUCCESS);
 					response.setResult(MessageUtil.message("photos.delete.success"));
-				}else
+				}else {
 					response.setResult(MessageUtil.message("photos.delete.fail"));
+				}
 			}catch(Exception e) {
 				
 				response.setResult(e.getMessage());
@@ -365,7 +372,7 @@ public class MainRestController {
 					userRepository.save(user);
 					final String msg = infoToSend == 0 ? MessageUtil.message("login.password.retrieved", genPsw)
 													   : MessageUtil.message("login.both.retrieved", retrievedUsername, genPsw);
-					mailSender.sendMail(msg, userEmail,  MessageUtil.message("login.retrieve.mail.subject"));
+				//	mailSender.sendMail(msg, userEmail,  MessageUtil.message("login.retrieve.mail.subject"));
 				}else if(retrievedUsername != null) {
 					logger.info("retrieved username for user " + userEmail);					
 					mailSender.sendMail(MessageUtil.message("login.username.retrieved", retrievedUsername), 
@@ -659,12 +666,7 @@ public class MainRestController {
 		
 		JsonResponse response = new JsonResponse();
 		response.setStatus(JsonResponse.ResponseStatus.FAIL);
-		
-		/*System.out.println("method: /getUserProfiles/targetViews");
-		System.out.println("offset: "+offset);
-		System.out.println("numRec: "+numRec);
-		System.out.println("dstViewCount: "+ session.getAttribute(SessionAttr.USER_DST_VIEWS_COUNT));*/
-	//	final int numRecords = 3;
+
 		final Integer numViews = (Integer) session.getAttribute(SessionAttr.USER_DST_VIEWS_COUNT);
 		//final Integer currUserId = CurrentUserUtility.getCurrentUser().getUserId();
 		if(offset >= numViews) {
@@ -692,11 +694,6 @@ public class MainRestController {
 		JsonResponse response = new JsonResponse();
 		response.setStatus(JsonResponse.ResponseStatus.FAIL);
 		
-		/*System.out.println("method: /getUserProfiles/srcViews");
-		System.out.println("offset: "+offset);
-		System.out.println("numRec: "+numRec);
-		System.out.println("srcViewCount: "+session.getAttribute(SessionAttr.USER_SRC_VIEWS_COUNT));*/
-		//SessionAttr.USER_DST_VIEWS_COUNT
 		final Integer numViews = (Integer) session.getAttribute(SessionAttr.USER_SRC_VIEWS_COUNT);
 		if(offset >= numViews) {
 			response.setResult("No more records");
@@ -874,7 +871,6 @@ public class MainRestController {
 		response.setStatus(JsonResponse.ResponseStatus.FAIL);
 
 		try {
-			//System.out.println(msgIds);
 			final int updateCount = userMessageRepository.updateMsgViewedStatus(msgIds);
 			//System.out.println(updateCount);
 			response.setStatus(JsonResponse.ResponseStatus.SUCCESS);
@@ -949,6 +945,7 @@ public class MainRestController {
 	@GetMapping("/targetMessages")
 	public @ResponseBody JsonResponse getTargetUserMessages(@RequestParam(name="target", required=true) String target, @RequestParam("offsetMsg")Integer offsetMsg) {
 		JsonResponse response = new JsonResponse();
+
 		response.setStatus(ResponseStatus.FAIL);
 		User targetUser = userRepository.findOneByUsername(target);
 		try {

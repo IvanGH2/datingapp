@@ -19,7 +19,6 @@ import ngd.mail.MailSenderService;
 import ngd.model.ActivationLink;
 import ngd.model.IActivationLinkRepository;
 import ngd.model.IUserProfileRepository;
-import ngd.model.TargetProfile;
 import ngd.model.User;
 import ngd.model.UserProfile;
 import ngd.model.service.RegisterUserForm;
@@ -63,10 +62,6 @@ public @ResponseBody JsonResponse processRegisterInfo(@ModelAttribute("regUserFo
 	
 			throw new Exception(MessageUtil.message("register.newuser.email_already_exists"));
 		}
-		/*if(userService.doesExistsUserWithSameIp(request.getRemoteAddr())) {
-			
-			throw new Exception(MessageUtil.message("register.newuser.ip_already_exists"));
-		}*/
 		
 		final User user = userService.addUser(registerUserForm, request.getRemoteAddr());
 		System.out.println("user profile about to be created");
@@ -84,15 +79,10 @@ public @ResponseBody JsonResponse processRegisterInfo(@ModelAttribute("regUserFo
 		if(userProfile != null ) {
 			System.out.println("user profile about to be saved");
 			userProfileRepository.save(userProfile);
-			System.out.println("user profile created");
+			
 		}else
 			System.out.println("user profile not created");
 		
-		final TargetProfile targetProfile = TargetProfile.builder()
-				.gender(registerUserForm.getTargetGender())
-				.dateCreated(user.getDateCreated())
-				.dateChanged(user.getDateCreated())
-				.build();
 				
 		ActivationLink aLink = activeLinkRepository.save(ActivationLink.builder()
 				.userId(user.getId())
@@ -105,7 +95,7 @@ public @ResponseBody JsonResponse processRegisterInfo(@ModelAttribute("regUserFo
 		System.out.println("UUID has been created " + aLink.getActivationLink());
 		response.setStatus(JsonResponse.ResponseStatus.SUCCESS);
 		response.setResult(MessageUtil.message("register.success.response.msg", user.getEmail()));
-		
+		//you can comment these 2 lines if you don't have the mail serever set up in application.properties
 		final String msg = MessageUtil.message("register.mail.activation", "http://localhost:8080/register/userActivate/" + aLink.getActivationLink());
 		mailSender.sendMail(msg, user.getEmail(), "activation link");
 
